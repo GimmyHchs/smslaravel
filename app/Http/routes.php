@@ -15,10 +15,11 @@ Route::get('/', 'SmsHomeController@index');
 
 //Route::get('home', 'HomeController@index');
 
-Route::get('smshome','SmsHomeController@index');
-Route::get('sms_courselist','SmsCourselistController@index');
-Route::get('sms_messagestate','SmsMessagestateController@index');
-Route::get('sms_setting','SmsSettingController@index'); 
+$router->resource('smshome','SmsHomeController');
+$router->resource('sms_courselist','SmsCourselistController');
+$router->resource('sms_messagestate','SmsMessagestateController');
+$router->resource('sms_setting','SmsSettingController');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
