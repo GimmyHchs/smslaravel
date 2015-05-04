@@ -4,17 +4,26 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Course;
 
-class SmsMessagestateController extends Controller {
+class SmsCourseController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function __construct(Course $course){
+
+      // $this->middleware('auth');
+       //$this->accountbank=$accountbank;
+       $this->course=$course;
+       //$this->bank=$bank;
+	}
+	public function index(Course $courses)
 	{
-		return view('smspages.smsmessagestate');
+		$courses = $this->course->get();
+		return view('course.index',compact('courses'));
 	}
 
 	/**

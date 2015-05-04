@@ -16,8 +16,8 @@ Route::get('/', 'SmsHomeController@index');
 //Route::get('home', 'HomeController@index');
 
 $router->resource('home','SmsHomeController');
-$router->resource('course','SmsCourselistController');
-$router->resource('messagestate','SmsMessagestateController');
+$router->resource('course','SmsCourseController');
+$router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
 
