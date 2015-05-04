@@ -48,7 +48,7 @@ class CourseStudentSeeder extends Seeder {
       //第三堂課有一名學生
       CourseStudent::create([
 
-         'course_id'        =>    '2',
+         'course_id'        =>    '3',
          'student_id'        =>    '2',
        
       ]);

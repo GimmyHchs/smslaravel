@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Student;
+Use App\CourseStudent;
+Use Illuminate\Support\Facades\DB;
 
 class SmsCourseController extends Controller {
 
@@ -14,12 +16,13 @@ class SmsCourseController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function __construct(Course $course,Student $student){
+	public function __construct(Course $course,Student $student,CourseStudent $coursestudent){
 
       // $this->middleware('auth');
        //$this->accountbank=$accountbank;
        $this->course=$course;
        $this->student=$student;
+       $this->coursestudent=$coursestudent;
        //$this->bank=$bank;
 	}
 	public function index(Course $courses)
@@ -54,11 +57,24 @@ class SmsCourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($id,Course $course)
 	{
 		//
-		$students = $this->student->get();
-		return view('course.show',compact('students'));
+		$myid = intval($id);
+		$course = $this->course->get()->where('id',$myid)->first();
+		//$coursestudent = $this->coursestudent->get()->where('course_id',$myid);
+		
+
+
+		//Join table
+		$students=DB::table('courses_students')->join('students', function($join) use($myid)
+        {
+            $join->on('students.id', '=', 'courses_students.student_id')
+                 ->where('courses_students.course_id', '=', $myid);
+        })->get();
+
+		
+		return view('course.show',compact('students','course'));
 	}
 
 	/**
