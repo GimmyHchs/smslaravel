@@ -16,6 +16,7 @@ class CreateStudentsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('sex');
 			$table->string('tel');
 			$table->string('tel_parents');
 			$table->string('about')->nullable();
