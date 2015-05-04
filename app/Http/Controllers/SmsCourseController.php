@@ -60,7 +60,7 @@ class SmsCourseController extends Controller {
 	public function show($id,Course $course)
 	{
 		//
-		$myid = intval($id);
+		$myid = $id;
 		$course = $this->course->get()->where('id',$myid)->first();
 		//$coursestudent = $this->coursestudent->get()->where('course_id',$myid);
 		
