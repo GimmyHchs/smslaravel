@@ -72,7 +72,7 @@ class SmsCourseController extends Controller {
             $join->on('students.id', '=', 'courses_students.student_id')
                  ->where('courses_students.course_id', '=', $myid);
         })->get();
-
+		dd($students);
 		
 		return view('course.show',compact('students','course'));
 	}
