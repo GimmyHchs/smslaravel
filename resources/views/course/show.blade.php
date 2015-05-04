@@ -24,7 +24,7 @@
                 <div class="col-md-1"><td>{{$student->sex}}</td></div>
                 <div class="col-md-4"><td>{{$student->tel}}</td></div>
                 <div class="col-md-4"><td>{{$student->tel_parents}}</td></div>
-              </div>
+              </div> 
                 
               </tr>
               @endforeach
