@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Course;
 
 class SmsCourselistController extends Controller {
 
@@ -12,9 +13,17 @@ class SmsCourselistController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function __construct(Course $course){
+
+      // $this->middleware('auth');
+       //$this->accountbank=$accountbank;
+       $this->course=$course;
+       //$this->bank=$bank;
+	}
+	public function index(Course $courses)
 	{
-		return view('smspages.smscourselist');
+		$courses = $this->course->get();
+		return view('course.index',compact('courses'));
 	}
 
 	/**
