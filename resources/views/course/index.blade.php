@@ -15,7 +15,7 @@
 
                        <hr>
                        <div class="page">
-                          {!!Form::open(['url'=>'/sms_courselist/'.$course->id,'method'=>'GET'])!!}
+                          {!!Form::open(['url'=>'/course/'.$course->id,'method'=>'GET'])!!}
                             <h2>{{$course->name}}</h2>
 
                          	  <div class="form-group">
