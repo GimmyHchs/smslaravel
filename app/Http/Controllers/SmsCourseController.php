@@ -60,8 +60,18 @@ class SmsCourseController extends Controller {
 	public function show($id,Course $course)
 	{
 		//
-		$myid = $id;
+		$myid = intval($id);
+		//$myid = $id;
+		
+
+
+
 		$course = $this->course->get()->where('id',$myid)->first();
+		if($course==null)
+		{
+			$myid = $id;
+			$course = $this->course->get()->where('id',$myid)->first();
+		}
 		//$coursestudent = $this->coursestudent->get()->where('course_id',$myid);
 		
 
@@ -72,7 +82,7 @@ class SmsCourseController extends Controller {
             $join->on('students.id', '=', 'courses_students.student_id')
                  ->where('courses_students.course_id', '=', $myid);
         })->get();
-		//dd($students);
+		//dd($course);
 		
 		return view('course.show',compact('students','course'));
 	}
