@@ -16,6 +16,7 @@
                        <hr>
                        <div class="page">
                           {!!Form::open(['url'=>'/course/'.$course->id,'method'=>'GET'])!!}
+                          <div class="content">
                             <h2>{{$course->name}}</h2>
 
                          	  <div class="form-group">
@@ -25,18 +26,19 @@
                          	  	</p>
                          	  </div>
                          	 <div class="row">
-								  <div class="col-md-6">
-									 <h3>上課日</h3>
-                         	  	     <p class="text-muted">
+								  <div class="col-md-8">
+									               <h3>上課日</h3>
+                         	  	   <p class="text-muted">
                          	  		 每周{{$course->weekday}}
+                                 </p>
 								  </div>
-								  <div class="col-md-3">
-								  	 <h3>開課時間</h3>
+								  <div class="col-md-2">
+								  	               <h3>開課時間</h3>
                          	  	     <p class="text-muted">
                          	  		  {{$course->date_start}} ~ {{$course->date_end}}
 								  </div>
-								  <div class="col-md-3">
-								  	 <h3>上課時間</h3>
+								  <div class="col-md-2">
+								  	               <h3>上課時間</h3>
                          	  	     <p class="text-muted">
                          	  		  {{$course->time_start}} ~ {{$course->time_end}}
 
@@ -47,7 +49,7 @@
                          	  	</p>
                          	  </div>
                                {!!Form::submit('學生詳細資訊',['class'=>'btn btn-primary'])!!}
-                         	  
+                         	  </div>
                           {!!Form::close()!!}
                        </div>
                        

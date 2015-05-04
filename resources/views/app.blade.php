@@ -43,6 +43,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/home') }}">Home</a></li>
 					<li><a href="{{ url('/course') }}">Course List</a></li>
+					<li><a href="{{ url('/student') }}">Student List</a></li>
 					<li><a href="{{ url('/messagestate') }}">Message State</a></li>
 					<li><a href="{{ url('/setting') }}">System Setting</a></li>
 				</ul>

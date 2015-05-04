@@ -4,28 +4,28 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Course;
 use App\Student;
-
-class SmsCourseController extends Controller {
+class SmsStudentController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function __construct(Course $course,Student $student){
+	public function __construct(Student $student){
 
       // $this->middleware('auth');
        //$this->accountbank=$accountbank;
-       $this->course=$course;
        $this->student=$student;
        //$this->bank=$bank;
 	}
-	public function index(Course $courses)
+
+
+	public function index()
 	{
-		$courses = $this->course->get();
-		return view('course.index',compact('courses'));
+		//
+		$students = $this->student->get();
+		return view('student.index',compact('students'));
 	}
 
 	/**
@@ -57,8 +57,6 @@ class SmsCourseController extends Controller {
 	public function show($id)
 	{
 		//
-		$students = $this->student->get();
-		return view('course.show',compact('students'));
 	}
 
 	/**
