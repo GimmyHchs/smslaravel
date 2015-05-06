@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration {
 			$table->string('sex');
 			$table->string('tel');
 			$table->string('tel_parents');
+			$table->string('barcode');
 			$table->string('about')->nullable();
 			$table->integer('age')->nullable();
 			$table->timestamps();

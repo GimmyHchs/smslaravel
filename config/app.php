@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+		'Dinesh\Barcode\BarcodeServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -194,6 +195,9 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
+		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'DNS1D' 	=> 'Dinesh\Barcode\Facades\DNS1DFacade',
+    	'DNS2D' 	=> 'Dinesh\Barcode\Facades\DNS2DFacade',
 
 	],
 

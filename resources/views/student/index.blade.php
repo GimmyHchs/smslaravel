@@ -13,14 +13,20 @@
     				  <table class="table table-hover">
               <tr>
                 <th>學生姓名</th>
+                <th>條碼</th> 
                 <th>性別</th> 
                 <th>電話</th>
                 <th>家長電話</th>
               </tr>
-              @foreach($students as $student)            
+              @foreach($students as $student) 
+              <?php
+              DNS1D::setStorPath('png/');
+              DNS1D::getBarcodePNGPath("$student->barcode", "C93",1,33);
+              ?>
               <tr class="active">
               <div class="row">
                 <div class="col-md-3"><td>{{$student->name}}</td></div>
+                <div class="col-md-1"><td>{!!Html::image('/png/'.$student->barcode.'.png')!!}</td></div>
                 <div class="col-md-1"><td>{{$student->sex}}</td></div>
                 <div class="col-md-4"><td>{{$student->tel}}</td></div>
                 <div class="col-md-4"><td>{{$student->tel_parents}}</td></div>

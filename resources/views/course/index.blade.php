@@ -6,10 +6,10 @@
   <div class="panel panel-default">
 <div class="panel-heading">課程列表</div>
 
+
 	<table class="table table-bordered">
 		  
 				<div class="panel-body">
-
 
     				@foreach($courses as $course)
 

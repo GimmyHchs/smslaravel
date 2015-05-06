@@ -42,6 +42,7 @@
 			<div class="content">
 				<div class="title">@yield('content')</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
+				
 			</div>
 		</div>
 	</body>
