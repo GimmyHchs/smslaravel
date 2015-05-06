@@ -39,6 +39,7 @@ class SmsCourseController extends Controller {
 	public function create()
 	{
 		//
+		return view('course.create');
 	}
 
 	/**
@@ -46,9 +47,19 @@ class SmsCourseController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
 		//
+		$newcourse= new Course;
+		$newcourse->name=$request->get('input_name');
+		$newcourse->weekday = $request->get('input_weekday');
+		$newcourse->time_start = $request->get('input_time_start');
+		$newcourse->time_end = $request->get('input_time_end');
+		$newcourse->date_start = $request->get('input_date_start');
+		$newcourse->date_end = $request->get('input_date_end');
+		$newcourse->introduction = $request->get('input_introduction');
+		$newcourse->save();
+		return redirect('/course');
 	}
 
 	/**

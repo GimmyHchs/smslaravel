@@ -11,6 +11,11 @@
 		  
 				<div class="panel-body">
 
+            {!!Form::open(['url'=>'/course/create','method'=>'GET'])!!}
+            {!!Form::submit('新增課程',['class' => 'btn btn-info'])!!}
+            {!!Form::close()!!}
+
+
     				@foreach($courses as $course)
 
                        <hr>
