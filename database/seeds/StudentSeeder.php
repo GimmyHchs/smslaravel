@@ -16,7 +16,7 @@ class StudentSeeder extends Seeder {
       	 'sex'          =>      '男',
          'tel'  		=> 		'+886922222222',
          'tel_parents'  => 		'+886933333333',
-         'barcode'  =>     'CC00001',
+         'barcode'  =>     'cc00001',
          'about'        => 		'我是測試A君，大家好..............................................',
          'age'   		=>		'17',
 
@@ -27,7 +27,7 @@ class StudentSeeder extends Seeder {
       	 'name'		   	=> 		'測試B君',
       	 'sex'          =>      '女',
          'tel'  		=> 		'+886999999543',
-         'barcode'  =>     'CC00002',
+         'barcode'  =>     'cc00002',
          'tel_parents'  => 		'+886999876543',
          'about'        => 		'我是測試B君，@@',
          'age'   		=>		'19',
@@ -41,7 +41,7 @@ class StudentSeeder extends Seeder {
       	 'sex'          =>      '男',
          'tel'  		=> 		'+886922412752',
          'tel_parents'  => 		'+886933727553',
-         'barcode'  =>     'CC00003',
+         'barcode'  =>     'cc00003',
          'about'        => 		'我是測試C君,SSSSSSSSSSSSSSSSSSSSSSSS',
          'age'   		=>		'14',
 
