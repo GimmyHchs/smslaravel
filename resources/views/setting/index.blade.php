@@ -93,6 +93,18 @@
 				</script>
 		
 		
+				<div class="col-md-9 col-md-offset-1" >
+					<div class="panel panel-default">
+			     	  	<div class="panel-heading">簡訊測試</div>
+			     	  	<div class="panel-body">
+			     	  		{!!Form::open(['url'=>'/smstest','method'=>'GET'])!!}
+			     	  		{!!Form::submit('發送一則測試簡訊',['class'=>'btn btn-primary'])!!}
+			     	  		{!!Form::close()!!}
+
+			     	  	</div>
+		     	  	</div>
+		     	 </div>
+
 	</body>
 </html>
 @stop

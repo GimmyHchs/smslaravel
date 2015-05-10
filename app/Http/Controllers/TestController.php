@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class BarcodeTestController extends Controller {
+class TestController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -15,7 +15,7 @@ class BarcodeTestController extends Controller {
 	public function index()
 	{
 		//
-		return view('barcodetest');
+		return view('testSender');
 	}
 
 	/**

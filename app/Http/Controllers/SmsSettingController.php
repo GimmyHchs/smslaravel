@@ -14,7 +14,7 @@ class SmsSettingController extends Controller {
 	 */
 	public function index()
 	{
-		return view('smspages.smssetting'); 
+		return view('setting.index'); 
 	}
 
 	/**
