@@ -14,7 +14,8 @@
 Route::get('/', 'SmsHomeController@index');
 
 //Route::get('home', 'HomeController@index');
-Route::get('/smstest','TestController@index');
+Route::post('/setting/smssend','SmsSettingController@sendsms');
+
 $router->resource('home','SmsHomeController');
 $router->resource('course','SmsCourseController');
 $router->resource('student','SmsStudentController');

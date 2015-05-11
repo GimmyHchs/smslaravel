@@ -97,13 +97,33 @@
 					<div class="panel panel-default">
 			     	  	<div class="panel-heading">簡訊測試</div>
 			     	  	<div class="panel-body">
-			     	  		{!!Form::open(['url'=>'/smstest','method'=>'GET'])!!}
+			     	  		{!!Form::open(['url'=>'/setting/smssend','method'=>'POST'])!!}
+			     	  		<div class="form-group">
+			     	  			{!!Form::label('發送對象')!!}
+			     	  			{!!Form::text('input_target','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
+			     	  		</div>
+			     	  		<div class="form-group">
+			     	  			{!!Form::label('發送來源')!!}
+			     	  			{!!Form::text('input_from','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
+
+			     	  		</div>
+			     	  		<div class="form-group">
+			     	  			{!!Form::label('簡訊內容')!!}
+			     	  			{!!Form::textarea('input_content','',['class'=>'form-control', 'placeholder'=>"Enter Message"])!!}
+			     	  		</div>
 			     	  		{!!Form::submit('發送一則測試簡訊',['class'=>'btn btn-primary'])!!}
 			     	  		{!!Form::close()!!}
 
 			     	  	</div>
 		     	  	</div>
 		     	 </div>
+		     
+		     	  @if (strpos($_SERVER["REQUEST_URI"],'smssend') !== false) 
+		     	  <?php
+				    echo "<script>   webix.message(\"You send a Message to $target\"); </script>";
+				   ?>
+				  @endif
+
 
 	</body>
 </html>
