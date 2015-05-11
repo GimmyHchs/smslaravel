@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class smscourselist extends app
+public class course extends app
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -13,7 +13,7 @@ public class smscourselist extends app
     /**
      * Constructor for objects of class smscourselist
      */
-    public smscourselist()
+    public course()
     {
         // initialise instance variables
         x = 0;

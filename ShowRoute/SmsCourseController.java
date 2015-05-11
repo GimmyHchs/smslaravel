@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class SmsCourselistController extends Controller
+public class SmsCourseController extends Controller
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -13,7 +13,7 @@ public class SmsCourselistController extends Controller
     /**
      * Constructor for objects of class SmsCourselistController
      */
-    public SmsCourselistController()
+    public SmsCourseController()
     {
         // initialise instance variables
         x = 0;

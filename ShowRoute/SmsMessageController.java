@@ -1,19 +1,19 @@
 
 /**
- * Write a description of class systemsetting here.
+ * Write a description of class SmsMessagestateController here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class systemsetting extends app
+public class SmsMessageController extends Controller
 {
     // instance variables - replace the example below with your own
     private int x;
 
     /**
-     * Constructor for objects of class systemsetting
+     * Constructor for objects of class SmsMessagestateController
      */
-    public systemsetting()
+    public SmsMessageController()
     {
         // initialise instance variables
         x = 0;
