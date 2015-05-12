@@ -34,11 +34,11 @@
                 {!!Form::selectRange('input_age',7,25,17,['class' => 'form-control'])!!}
             </div>
             <div class="form-group">
-                {!!Form::label('電話')!!}
+                {!!Form::label('手機號碼')!!}
                 {!!Form::text('input_tel','',['class' => 'form-control','placeholder' => 'Enter Tel'])!!}
             </div>
             <div class="form-group">
-                {!!Form::label('家長電話')!!}
+                {!!Form::label('家長手機號碼')!!}
                 {!!Form::text('input_tel_parents','',['class' => 'form-control','placeholder' => 'Enter Parents Tel'])!!}
             </div>
             <div class="form-group">

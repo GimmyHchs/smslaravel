@@ -60,7 +60,7 @@ class SmsStudentController extends Controller {
 		$student->name = $request->get('input_name');
 		$student->age = $request->get('input_age');
 		$student->sex = $request->get('input_sex');
-		$student->tel = $request->get('input_tel');
+		$student->tel = '886'.substr($request->get('input_tel'),1,9);
 		$student->tel_parents = '886'.substr($request->get('input_tel_parents'),1,9);
 		$student->about = $request->get('input_about');
 		if($lastid<10)

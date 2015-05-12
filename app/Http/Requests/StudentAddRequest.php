@@ -24,7 +24,7 @@ class StudentAddRequest extends Request {
 		return [
 			//
 		   'input_name' => 'required',
-		   'input_tel' => 'required',
+		   'input_tel' =>['required','regex:/^09\d{2}-?\d{6}$/'],
 		   'input_tel_parents' => ['required','regex:/^09\d{2}-?\d{6}$/']
 
 		];
