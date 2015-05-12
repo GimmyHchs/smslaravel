@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Student;
@@ -28,7 +29,9 @@ class SmsCourseController extends Controller {
 	public function index(Course $courses)
 	{
 		$courses = $this->course->get();
-		return view('course.index',compact('courses'));
+		$message = Session::get('message');
+		Session::forget('message');
+		return view('course.index',compact('courses','message'));
 	}
 
 	/**
@@ -73,10 +76,6 @@ class SmsCourseController extends Controller {
 		//
 		$myid = intval($id);
 		//$myid = $id;
-		
-
-
-
 		$course = $this->course->get()->where('id',$myid)->first();
 		if($course==null)
 		{
@@ -128,7 +127,19 @@ class SmsCourseController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//刪除課程
+   		$course = $this->course->get()->where('id',$id)->first();
+   		if($course==null)
+		{
+			$myid = intval($id);
+			$course = $this->course->get()->where('id',$myid)->first();
+		}
+   		
+
+   		Session::put('message', $course->name);
+   		$course->delete();
+
+		return redirect('/course');
 	}
 
 }

@@ -48,15 +48,19 @@
                          	  		  {{$course->time_start}} ~ {{$course->time_end}}
 
 								  </div>
-							 </div>
-                         	  <div class="form-group">
-                         	  			
-                         	  	</p>
-                         	  </div>
-                               {!!Form::submit('學生詳細資訊',['class'=>'btn btn-primary'])!!}
-                         	  </div>
+							    </div>
+                  <div class="form-group">  	  			
+
+                          {!!Form::submit('學生詳細資訊',['class'=>'btn btn-primary'])!!}
+                   </div>
                           {!!Form::close()!!}
-                       </div>
+                          {!!Form::open(['url'=>'/course/'.$course->id,'method'=>'DELETE'])!!}
+                          {!!Form::submit('刪除此課程',['class'=>'btn btn-danger'])!!}
+                          {!!Form::close()!!}
+
+                  
+                  </div>
+
                        
             
                        
@@ -65,5 +69,10 @@
     			</div>
   </div>
 </div>
+
+
+         @if (!empty($message))
+            <script>webix.message("You Delete Course {{$message}}"); </script>
+         @endif
 
 @stop
