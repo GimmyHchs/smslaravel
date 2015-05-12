@@ -3,8 +3,10 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Student;
+use App\Http\Requests\StudentAddRequest;
 class SmsStudentController extends Controller {
 
 	/**
@@ -25,7 +27,9 @@ class SmsStudentController extends Controller {
 	{
 		//
 		$students = $this->student->get();
-		return view('student.index',compact('students'));
+		$message = Session::get('message');
+		Session::forget('message');
+		return view('student.index',compact('students', 'message'));
 	}
 
 	/**
@@ -36,6 +40,7 @@ class SmsStudentController extends Controller {
 	public function create()
 	{
 		//
+		return view('student.create');
 	}
 
 	/**
@@ -43,9 +48,36 @@ class SmsStudentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StudentAddRequest $request)
 	{
-		//
+		//Check The Input
+	
+
+		$lastid=$this->student->get()->last()->id;
+		$lastid++;
+		//$lastid=10;
+		$student = new Student;
+		$student->name = $request->get('input_name');
+		$student->age = $request->get('input_age');
+		$student->sex = $request->get('input_sex');
+		$student->tel = $request->get('input_tel');
+		$student->tel_parents = '886'.substr($request->get('input_tel_parents'),1,9);
+		$student->about = $request->get('input_about');
+		if($lastid<10)
+			$student->barcode='cc0000'.$lastid;
+		else if($lastid<100)
+			$student->barcode='cc000'.$lastid;
+		else if($lastid<1000)
+			$student->barcode='cc00'.$lastid;
+		//$lastid=$laststudent->id;
+		$isaddstudent=true;
+
+		$student->save();
+		//dd($student->tel_parents);
+		Session::put('message', $student->name);
+		return redirect('/student');
+		
+		//return view('student.index',compact('isaddstudent','students'));
 	}
 
 	/**

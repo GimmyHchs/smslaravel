@@ -118,12 +118,9 @@
 		     	  	</div>
 		     	 </div>
 		     
-		     	  @if (strpos($_SERVER["REQUEST_URI"],'smssend') !== false) 
-		     	  <?php
-				    echo "<script>   webix.message(\"You send a Message to $target\"); </script>";
-				   ?>
-				  @endif
-
+         @if (!empty($message))
+            <script>webix.message("You Send SMS to {{$message}}"); </script>
+         @endif
 
 	</body>
 </html>

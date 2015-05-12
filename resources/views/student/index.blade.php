@@ -10,6 +10,9 @@
 				<div class="panel-body">
 
         <div class="page">
+
+              
+              <a class="btn btn-info" href="{{ url('/student/create') }}">新增學生</a>
     				  <table class="table table-hover">
               <tr>
                 <th>學生姓名</th>
@@ -41,5 +44,7 @@
     			</div>
   </div>
 </div>
-
+         @if (!empty($message))
+            <script>webix.message("You Add {{$message}}"); </script>
+         @endif
 @stop

@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Smsapi\Sender;
 
@@ -26,7 +27,11 @@ class SmsSettingController extends Controller {
 
 	public function index()
 	{
-		return view('setting.index'); 
+
+		$message = Session::get('message');
+		Session::forget('message');
+
+		return view('setting.index',compact('message')); 
 	}
 
 	/**
@@ -109,7 +114,8 @@ class SmsSettingController extends Controller {
 		$sender->send();
 		$target = $request->get('input_target');
 		//$issend = true;
-		return view('setting.index',compact('target'));
+		Session::put('message', $target);
+		return redirect('/setting');
 
 	}
 
