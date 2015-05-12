@@ -106,7 +106,7 @@ class SmsSettingController extends Controller {
 		$sender->to($to);
 		$sender->content($message);
 
-		//$sender->send();
+		$sender->send();
 		$target = $request->get('input_target');
 		//$issend = true;
 		return view('setting.index',compact('target'));
