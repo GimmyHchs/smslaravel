@@ -27,8 +27,8 @@ class SmsMessageController extends Controller {
 	public function index(Message $messages,Student $students)
 	{
 		$messages = $this->message->get();
-		$students = $this->student->get();
-		return view('message.index',compact('messages','students'));
+		//$students = $this->student->get();
+		return view('message.index',compact('messages'));
 	}
 
 	/**

@@ -43,6 +43,6 @@
   </div>
 </div>
          @if (!empty($message))
-            <script>webix.message("You Add {{$message}}"); </script>
+            <script>webix.message("{{$message}}"); </script>
          @endif
 @stop

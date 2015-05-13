@@ -17,6 +17,7 @@ class CreateMessagesTable extends Migration {
 			$table->increments('id');
 			$table->integer('course_id');
 			$table->integer('student_id');
+			$table->string('student_name')->nullable();
 			$table->string('from');
 			$table->string('to');
 			$table->text('content');

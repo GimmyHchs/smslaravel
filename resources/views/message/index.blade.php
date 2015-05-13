@@ -19,7 +19,7 @@
 						  @else
 						  	<tr class="active">
 						  @endif
-						  	<td>{{$students->where('id',$message->student_id)->first()->name}}</td>
+						  	<td>{{$message->student_name}}</td>
 						    <td>{{$message->to}}</td>
 						    <td>{{$message->content}}</td> 
 						    <td>{{$message->delivertype}}</td>

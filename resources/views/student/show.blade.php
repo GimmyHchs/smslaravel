@@ -33,7 +33,11 @@
 	                       				<div class="form-group">
 	    	    							{!!Form::submit('修改學生資料',['class'=>'btn btn-primary'])!!}
 	    	    						</div>
-	    	    				{!!Form::close()!!}
+	    	    				 {!!Form::close()!!}
+	    	    				<div style="margin-top:10px">
+    	    					 {!!Form::open(['url'=>'student/'.$student->id,'method'=>'Delete'])!!}
+    	    	 						{!!Form::submit('刪除此學生',['class'=>'btn btn-danger'])!!}
+    	    					 {!!Form::close()!!}
     	    					</div>
     	    		</div>
 

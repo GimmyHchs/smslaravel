@@ -75,7 +75,7 @@ class SmsStudentController extends Controller {
 
 		$student->save();
 		//dd($student->tel_parents);
-		Session::put('message', $student->name);
+		Session::put('message', 'You Add a Student '.$student->name);
 		return redirect('/student');
 		
 		//return view('student.index',compact('isaddstudent','students'));
@@ -136,7 +136,7 @@ class SmsStudentController extends Controller {
 		$student->tel_parents='886'.substr($request->get('input_tel_parents'),1,9);
 		$student->about=$request->get('input_about');
 		$student->save();
-		Session::put('message', $student->name);
+		Session::put('message',$student->name);
 		return redirect('/student/'.$id);
 	}
 
@@ -149,6 +149,14 @@ class SmsStudentController extends Controller {
 	public function destroy($id)
 	{
 		//
+		$student=$this->student->get()->where('id',$id)->first();
+		if($student==null){
+			$student=$this->student->get()->where('id',intval($id))->first();
+		}
+		//dd($student->name.'You Delete a Student '.$student->name);
+		Session::put('message','You Delete a Student '.$student->name);
+		$student->delete();
+		return redirect('/student');
 	}
 
 }
