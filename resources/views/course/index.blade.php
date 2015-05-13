@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row" >
-  <div class="col-md-10 col-md-offset-1" >
+  <div class="col-md-12 col-md-offset-0" >
   <div class="panel panel-default">
 <div class="panel-heading">課程列表</div>
 
@@ -52,6 +52,7 @@
                   <div class="form-group">  	  			
 
                           {!!Form::submit('學生詳細資訊',['class'=>'btn btn-primary'])!!}
+                          
                    </div>
                           {!!Form::close()!!}
                           {!!Form::open(['url'=>'/course/'.$course->id,'method'=>'DELETE'])!!}

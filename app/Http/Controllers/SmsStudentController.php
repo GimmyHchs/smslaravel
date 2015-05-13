@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Http\Requests\StudentAddRequest;
+
 class SmsStudentController extends Controller {
 
-	/**
+	/*
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -89,6 +90,14 @@ class SmsStudentController extends Controller {
 	public function show($id)
 	{
 		//
+		$student=$this->student->get()->where('id',$id)->first();
+		if($student==null){
+			$student=$this->student->get()->where('id',intval($id))->first();
+		}
+		$message = Session::get('message');
+		Session::forget('message');
+		return view('student.show',compact('student','message'));
+
 	}
 
 	/**
@@ -100,6 +109,13 @@ class SmsStudentController extends Controller {
 	public function edit($id)
 	{
 		//
+		$student=$this->student->get()->where('id',$id)->first();
+		if($student==null){
+			$student=$this->student->get()->where('id',intval($id))->first();
+		}
+		$student->tel='0'.substr($student->tel,3,9);
+		$student->tel_parents='0'.substr($student->tel_parents,3,9);
+		return view('student.edit',compact('student'));
 	}
 
 	/**
@@ -108,9 +124,20 @@ class SmsStudentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,StudentAddRequest $request)
 	{
 		//
+		$student=$this->student->get()->where('id',$id)->first();
+		if($student==null){
+			$student=$this->student->get()->where('id',intval($id))->first();
+		}
+		$student->name=$request->get('input_name');
+		$student->tel='886'.substr($request->get('input_tel'),1,9);
+		$student->tel_parents='886'.substr($request->get('input_tel_parents'),1,9);
+		$student->about=$request->get('input_about');
+		$student->save();
+		Session::put('message', $student->name);
+		return redirect('/student/'.$id);
 	}
 
 	/**

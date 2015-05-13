@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row" >
-<div class="col-md-10 col-md-offset-1" >
+<div class="col-md-12 col-md-offset-0" >
 <div class="panel panel-default">
 <div class="panel-heading">學生列表</div>
 
@@ -11,8 +11,9 @@
 
         <div class="page">
 
-              
+              <div style="margin-bottom:10px">
               <a class="btn btn-info" href="{{ url('/student/create') }}">新增學生</a>
+              </div>
     				  <table class="table table-hover">
               <tr>
                 <th>學生姓名</th>
@@ -27,14 +28,11 @@
               DNS1D::getBarcodePNGPath("$student->barcode", "C93",1,33);
               ?>
               <tr class="active">
-              <div class="row">
-                <div class="col-md-3"><td>{{$student->name}}</td></div>
-                <div class="col-md-1"><td>{!!Html::image('/png/'.$student->barcode.'.png')!!}</td></div>
-                <div class="col-md-1"><td>{{$student->sex}}</td></div>
-                <div class="col-md-4"><td>{{$student->tel}}</td></div>
-                <div class="col-md-4"><td>{{$student->tel_parents}}</td></div>
-              </div>
-                
+                <td><a href="{{ url('/student/'.$student->id) }}">{{$student->name}}</a></td>
+                <td>{!!Html::image('/png/'.$student->barcode.'.png')!!}</td>
+                <td>{{$student->sex}}</td>
+                <td>{{$student->tel}}</td>
+                <td>{{$student->tel_parents}}</td>
               </tr>
               @endforeach
             

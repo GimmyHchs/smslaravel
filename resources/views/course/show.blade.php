@@ -24,13 +24,12 @@
               DNS1D::getBarcodePNGPath("$student->barcode", "C93",1,33);
               ?>         
               <tr class="active">
-              <div class="row">
-                <div class="col-md-3"><td>{{$student->name}}</td></div>
-                <div class="col-md-1"><td>{!!Html::image('/png/'.$student->barcode.'.png')!!}</td></div>
-                <div class="col-md-1"><td>{{$student->sex}}</td></div>
-                <div class="col-md-4"><td>{{$student->tel}}</td></div>
-                <div class="col-md-4"><td>{{$student->tel_parents}}</td></div>
-              </div> 
+                <td><a href="{{ url('/student/'.$student->id) }}">{{$student->name}}</a></td>
+                <td>{!!Html::image('/png/'.$student->barcode.'.png')!!}</td>
+                <td>{{$student->sex}}</td>
+                <td>{{$student->tel}}</td>
+                <td>{{$student->tel_parents}}</td>
+              </tr>
                 
               </tr>
               @endforeach

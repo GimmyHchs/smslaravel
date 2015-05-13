@@ -24,16 +24,17 @@
 		<title>Disabling Components</title>
 	</head>
 	<body>
-				<div class="col-md-9 col-md-offset-1" >
+				<div class="col-md-12 col-md-offset-0" >
 					<div class="panel panel-default">
 			     	  	<div class="panel-heading">系統設定</div>
 			     	  	<div class="panel-body" id="layout_div"></div>
 		     	  	</div>
 		     	 </div>
+
 				<script>
 
 				    webix.ui({
-				        container:"layout_div",
+				        container:"layout_div2",
 				        id:"app",
 				        margin:5,
 				        rows:[
@@ -93,7 +94,7 @@
 				</script>
 		
 		
-				<div class="col-md-9 col-md-offset-1" >
+				<div class="col-md-12 col-md-offset-0" >
 					<div class="panel panel-default">
 			     	  	<div class="panel-heading">簡訊測試</div>
 			     	  	<div class="panel-body">
