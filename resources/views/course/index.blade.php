@@ -56,7 +56,12 @@
                    </div>
                           {!!Form::close()!!}
                           {!!Form::open(['url'=>'/course/'.$course->id,'method'=>'DELETE'])!!}
-                          {!!Form::submit('刪除此課程',['class'=>'btn btn-danger'])!!}
+                          <div style="margin-left:15px">
+                          <div class="row">
+                          <a class="btn btn-info" href="{{url('/course/'.$course->id.'/edit')}}">編輯</a>
+                          {!!Form::submit('刪除',['class'=>'btn btn-danger'])!!}
+                          </div>
+                          </div>
                           {!!Form::close()!!}
 
                   
@@ -73,7 +78,7 @@
 
 
          @if (!empty($message))
-            <script>webix.message("You Delete Course {{$message}}"); </script>
+            <script>webix.message("{{$message}}"); </script>
          @endif
 
 @stop

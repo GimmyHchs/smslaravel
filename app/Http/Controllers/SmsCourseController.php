@@ -62,6 +62,8 @@ class SmsCourseController extends Controller {
 		$newcourse->date_end = $request->get('input_date_end');
 		$newcourse->introduction = $request->get('input_introduction');
 		$newcourse->save();
+
+		Session::put('message', "You Add Course ".$newcourse->name);
 		return redirect('/course');
 	}
 
@@ -106,6 +108,12 @@ class SmsCourseController extends Controller {
 	public function edit($id)
 	{
 		//
+		$course=$this->course->get()->where('id',$id)->first();
+		if($course==null){
+			$course=$this->course->get()->where('id',intval($id))->first();
+		}
+		return view('course.edit',compact('course'));
+
 	}
 
 	/**
@@ -114,9 +122,25 @@ class SmsCourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,Request $request)
 	{
 		//
+		$course=$this->course->get()->where('id',$id)->first();
+		if($course==null){
+			$course=$this->course->get()->where('id',intval($id))->first();
+		}
+
+		$course->name=$request->get('input_name');		
+		$course->weekday=$request->get('input_weekday');
+		$course->time_start=$request->get('input_time_start');
+		$course->time_end=$request->get('input_time_end');				
+		$course->date_start=$request->get('input_date_start');			
+		$course->date_end=$request->get('input_date_end');
+		$course->introduction=$request->get('input_introduction');	
+		$course->save();
+		Session::put('message', "You modified Course ".$course->name);
+
+		return redirect('/course');
 	}
 
 	/**
@@ -136,7 +160,7 @@ class SmsCourseController extends Controller {
 		}
    		
 
-   		Session::put('message', $course->name);
+   		Session::put('message', 'You Delete Course '.$course->name);
    		$course->delete();
 
 		return redirect('/course');

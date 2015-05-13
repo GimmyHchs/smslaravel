@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-
+<link href="print.css" rel="stylesheet" type="text/css" media="print" />
 <div class="row" >
 <div class="col-md-12 col-md-offset-0" >
 <div class="panel panel-default">
@@ -13,6 +13,7 @@
 
               <div style="margin-bottom:10px">
               <a class="btn btn-info" href="{{ url('/student/create') }}">新增學生</a>
+              
               </div>
     				  <table class="table table-hover">
               <tr>
