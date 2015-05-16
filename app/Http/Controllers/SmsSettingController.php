@@ -104,9 +104,18 @@ class SmsSettingController extends Controller {
 		$sender = new Sender(API, KEY, SECRET);
 		$message = $request->get('input_content')." \n set time at  ".date("Y-m-d")."\n".date("h:i:sa");
 		$from = $request->get('input_from');
-		$to = [
-			$request->get('input_target')
-		];
+
+		if(substr($request->get('input_target'), 0,1)=="0")
+		{
+			$to = [
+				'886'.substr($request->get('input_target'), 1,9)
+			];
+		}
+		else{
+			$to = [
+				$request->get('input_target')
+			];
+		}
 		$sender->from($from);
 		$sender->to($to);
 		$sender->content($message);
@@ -114,6 +123,7 @@ class SmsSettingController extends Controller {
 		$sender->send();
 		$target = $request->get('input_target');
 		//$issend = true;
+		//dd($to);
 		Session::put('message', $target);
 		return redirect('/setting');
 
