@@ -86,12 +86,13 @@
             </div>
 
           @if($index%4==0&&$index/4>=1)
-          </div>
-          </div>
+            
           @endif
         
 
           @endforeach
+          </div>
+          </div>
           </div>
           <!-- Above Show when printmode  -->
 

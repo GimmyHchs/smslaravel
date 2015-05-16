@@ -53,14 +53,12 @@
               <div align="center">{{$student->name}}</div>
               <div align="center" style="margin-bottom:1px">{!!Html::image('/png/'.$student->barcode.'.png')!!}</div>
             </div>
-
-          @if($index%4==0&&$index/4>=1)
-          </div>
-          </div>
-          @endif
-        
+                
 
           @endforeach
+          </div>
+          </div>
+          
           </div>
           <!-- Above Show when printmode  -->
           </div>
