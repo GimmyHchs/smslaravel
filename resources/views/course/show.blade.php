@@ -10,6 +10,8 @@
 				<div class="panel-body">
 
         <div class="page">
+        <!-- Below Hiden when printmode  -->
+              <div class="hidden-print">
     				  <table class="table table-hover">
               <tr>
                 <th>學生姓名</th>
@@ -35,6 +37,32 @@
               @endforeach
             
           </table>
+          </div>
+         <!-- Above Hiden when printmode  -->
+
+
+          <!-- Blow Show when printmode  -->
+          <div class="visible-print-inline">
+          @foreach($students as $index=>$student)
+          @if($index%4==0)
+          <div class="container">
+          <div class="row">
+          @endif
+       
+            <div class="col-xs-3" style=" border-width:1px;border-style:dotted;">
+              <div align="center">{{$student->name}}</div>
+              <div align="center" style="margin-bottom:1px">{!!Html::image('/png/'.$student->barcode.'.png')!!}</div>
+            </div>
+
+          @if($index%4==0&&$index/4>=1)
+          </div>
+          </div>
+          @endif
+        
+
+          @endforeach
+          </div>
+          <!-- Above Show when printmode  -->
           </div>
     			</div>
     			</div>

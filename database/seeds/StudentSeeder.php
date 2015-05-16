@@ -48,6 +48,32 @@ class StudentSeeder extends Seeder {
 
 
       ]);
+      Student::create([
+        
+         'name'       =>    '測試D君',
+         'sex'          =>      '男',
+         'tel'      =>    '886922412755',
+         'tel_parents'  =>    '886933727558',
+         'barcode'  =>     'cc00004',
+         'about'        =>    '我是測試D君,我沒有參與任何課程',
+         'age'      =>    '15',
+
+
+
+      ]);
+      Student::create([
+        
+         'name'       =>    '黃清秀',
+         'sex'          =>      '男',
+         'tel'      =>    '886916023011',
+         'tel_parents'  =>    '886916023011',
+         'barcode'  =>     'cc00027',
+         'about'        =>    '我是黃清秀，手機號碼與資料皆是正確的，我沒有參與任何課程',
+         'age'      =>    '22',
+
+
+
+      ]);
   }
 
 }

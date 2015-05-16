@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Student;
+use App\CourseStudent;
+use App\Course;
 use App\Http\Requests\StudentAddRequest;
 
 class SmsStudentController extends Controller {
@@ -15,11 +17,13 @@ class SmsStudentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function __construct(Student $student){
+	public function __construct(Student $student,CourseStudent $coursestudent,Course $course){
 
       // $this->middleware('auth');
        //$this->accountbank=$accountbank;
        $this->student=$student;
+       $this->coursestudent=$coursestudent;
+       $this->course=$course;
        //$this->bank=$bank;
 	}
 
@@ -28,9 +32,20 @@ class SmsStudentController extends Controller {
 	{
 		//
 		$students = $this->student->get();
+		$coursestudents = $this->coursestudent->join('courses','courses.id','=','courses_students.course_id')->select('courses.name','courses_students.student_id')->get();
+		$coursestudentarray = array();
+		// for($i=0;$i<count($students);$i++)
+		// {
+		// 	 $mycount($coursestudent->where('student_id',$students[$i]->id))); 
+	 // 	}
+	 	//$mycount=count($coursestudent->where('student_id',$students[0]->id)); 
+
+//		dd($mycount);
+
 		$message = Session::get('message');
 		Session::forget('message');
-		return view('student.index',compact('students', 'message'));
+		 
+		return view('student.index',compact('students', 'message','coursestudents'));
 	}
 
 	/**

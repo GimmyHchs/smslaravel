@@ -5,6 +5,11 @@
 @section('content')
 <!DOCTYPE html>
 <html>
+	<script type="text/javascript">
+		$('#myModal').on('shown.bs.modal', function () {
+  		$('#myInput').focus()
+	});
+	</script>
 	<style type="text/css">
 		.webix_message_area{
 
@@ -27,7 +32,45 @@
 				<div class="col-md-12 col-md-offset-0" >
 					<div class="panel panel-default">
 			     	  	<div class="panel-heading">系統設定</div>
-			     	  	<div class="panel-body" id="layout_div"></div>
+			     	  	<div class="panel-body" id="layout_div">
+			     	  	<div class="group">
+			     	  		{!!Form::button('Jquery+Boostrap 發送簡訊',['class'=>'btn btn-info form-control','data-toggle'=>"modal",'data-target'=>"#myModal"])!!}
+			     	  	</div>
+						<!--Jquery+Boostrap Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+							      </div>
+							      <div class="modal-body">
+							        	{!!Form::open(['url'=>'www.google.com.tw','method'=>'GET'])!!}
+										 <div class="form-group">
+						     	  			{!!Form::label('發送對象')!!}
+						     	  			{!!Form::text('input_target','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
+						     	  		</div>
+						     	  		<div class="form-group">
+						     	  			{!!Form::label('發送來源')!!}
+						     	  			{!!Form::text('input_from','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
+
+						     	  		</div>
+						     	  		<div class="form-group">
+						     	  			{!!Form::label('簡訊內容')!!}
+						     	  			{!!Form::textarea('input_content','',['class'=>'form-control', 'placeholder'=>"Enter Message"])!!}
+						     	  		</div>
+						     	  		
+							      </div>
+							      <div class="modal-footer">
+						        		{!!Form::button('Close',['class'=>"btn btn-default",'data-dismiss'=>"modal"])!!}
+						        		{!!Form::submit('發送一則測試簡訊',['class'=>'btn btn-primary'])!!}
+										{!!Form::close()!!}
+						     	 </div>
+						    </div>
+						  </div>
+						</div>
+						<!--Jquery+Boostrap Modal -->
+			     	  	</div>
 		     	  	</div>
 		     	 </div>
 
