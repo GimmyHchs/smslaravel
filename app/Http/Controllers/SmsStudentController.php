@@ -9,7 +9,8 @@ use App\Student;
 use App\CourseStudent;
 use App\Course;
 use App\Http\Requests\StudentAddRequest;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
 class SmsStudentController extends Controller {
 
 	/*
@@ -172,6 +173,96 @@ class SmsStudentController extends Controller {
 		Session::put('message','You Delete a Student '.$student->name);
 		$student->delete();
 		return redirect('/student');
+	}
+	public function uploadExcel(Request $request)
+	{
+		$file = $request->get('excelfile');
+		$contents = "";
+		$reader = Excel::load(Input::file('excelfile')->getRealPath());
+		$reader->setActiveSheetIndex(0);
+		//dd($reader->getActiveSheet());
+		foreach ($reader->getActiveSheet()->getRowIterator() as $rowindex => $row) {
+		$student = new Student;
+        foreach ($row->getCellIterator() as $cellindex => $cell) {
+        	if(!is_null($cell)&&$rowindex==1)
+        	{
+        		switch ($cellindex)
+                {
+                       case 'A':
+            				if($cell->getValue()!='姓名')
+        					dd('Excel內容格式錯誤...');
+            				break;
+						case 'B':
+            				if($cell->getValue()!='手機')
+        					dd('Excel內容格式錯誤...');
+            				break;
+            			case 'C':
+            				if($cell->getValue()!='家長手機')
+        					dd('Excel內容格式錯誤...');
+            				//dd($contents);
+     
+            			default:
+            				break;
+            	}
+
+        	}
+            else if (!is_null($cell)&&$rowindex!=1) {
+            	
+                switch ($cellindex)
+                {
+                       case 'A':
+            				$student->name=$cell->getValue();
+            				//dd($student->name);
+            				break;
+						case 'B':
+            				$student->tel=$cell->getValue();
+            				//dd($student->tel);
+            				break;
+            			case 'C':
+            				$student->tel_parents=$cell->getValue();
+            				//dd($contents);
+            			
+            			default:
+            				$student->age=16;
+            				$student->sex='男';
+            				$lastid=$this->student->get()->last()->id;
+							$lastid++;
+							if($lastid<10)
+								$student->barcode='cc0000'.$lastid;
+							else if($lastid<100)
+								$student->barcode='cc000'.$lastid;
+							else if($lastid<1000)
+								$student->barcode='cc00'.$lastid;
+            			    $student->save();
+            				break;
+            	}
+       	 	}
+        }
+
+    	}
+    	Session::put('message','You Import a Excel File-success');
+		return redirect('/student');
+
+	}
+	public function downloadExcel(){
+
+		Excel::create('補習班全員名單', function($excel) {
+
+   			 // Call writer methods here
+			$excel->sheet('sheet1',function($sheet){
+				$data=[];
+				$students=$this->student->get();
+				 array_push($data, ['姓名','手機','家長手機']);
+				 foreach ($students as $index => $student) {
+				 	array_push($data, [$student->name,$student->tel,$student->tel_parents]);
+				 }
+				$sheet->fromArray($data,null,'A1',false,false);
+				//$sheet->fromArray($data,null,'A2',false,false);
+
+			});
+
+		})->download('xlsx');
+
 	}
 
 }

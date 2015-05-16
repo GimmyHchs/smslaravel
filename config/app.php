@@ -137,6 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 		'Dinesh\Barcode\BarcodeServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -198,7 +199,7 @@ return [
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
 		'DNS1D' 	=> 'Dinesh\Barcode\Facades\DNS1DFacade',
     	'DNS2D' 	=> 'Dinesh\Barcode\Facades\DNS2DFacade',
-
+    	'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	],
 
 ];

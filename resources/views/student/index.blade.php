@@ -19,8 +19,24 @@
         <div class="page">
 
               <div style="margin-bottom:10px" class="hidden-print">
-              <a class="btn btn-info" href="{{ url('/student/create') }}">新增學生</a>
-              
+              <div class="container">
+              <div class="row">
+                <div class="col-xs-1">
+                <a class="btn btn-info" href="{{ url('/student/create') }}">新增學生</a>
+                </div> 
+                 <div class="col-xs-2">
+                   {!!Form::open(['url'=>'/student/downloadexcel','method'=>'GET'])!!}
+                   {!!Form::submit('下載Excel名單',['class' => 'btn btn-primary'])!!}
+                   {!!Form::close()!!}
+                </div>
+                <div class="col-xs-1">
+                   {!!Form::open(['url'=>'/student/uploadexcel','method'=>'Post','files'=>true])!!}
+                   {!!Form::file('excelfile',[])!!}
+                   {!!Form::submit('上傳檔案',['class' => ''])!!}
+                   {!!Form::close()!!}
+                </div>
+              </div>
+              </div>
               </div>
               <!-- Below Hiden when printmode  -->
               <div class="hidden-print">
@@ -84,12 +100,7 @@
               <div align="center">{{$student->name}}</div>
               <div align="center" style="margin-bottom:1px">{!!Html::image('/png/'.$student->barcode.'.png')!!}</div>
             </div>
-
-          @if($index%4==0&&$index/4>=1)
-            
-          @endif
         
-
           @endforeach
           </div>
           </div>
