@@ -45,7 +45,7 @@
 						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
 							      </div>
 							      <div class="modal-body">
-							        	{!!Form::open(['url'=>'www.google.com.tw','method'=>'GET'])!!}
+							        	{!!Form::open(['url'=>'/setting/smssend','method'=>'POST'])!!}
 										 <div class="form-group">
 						     	  			{!!Form::label('發送對象')!!}
 						     	  			{!!Form::text('input_target','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
