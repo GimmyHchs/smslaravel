@@ -1,12 +1,18 @@
 @extends('app')
 @section('content')
+
+<script type="text/javascript">
+  $(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
 <link href="print.css" rel="stylesheet" type="text/css" media="print" />
 <div class="row" >
 <div class="col-md-12 col-md-offset-0" >
 <div class="panel panel-default">
 <div class="panel-heading">學生列表</div>
 
-		  
+		    
 				<div class="panel-body">
 
         <div class="page">
@@ -22,6 +28,7 @@
                 <th>性別</th> 
                 <th>電話</th>
                 <th>家長電話</th>
+                <th>已加入課程</th>
               </tr>
               @foreach($students as $student) 
               <?php
@@ -34,7 +41,12 @@
                 <td>{{$student->sex}}</td>
                 <td>{{$student->tel}}</td>
                 <td>{{$student->tel_parents}}</td>
-              </tr>
+                <td><button type="button" class="btn btn-warning"
+                      data-container="body" data-toggle="popover" data-placement="bottom"
+                      title="123"
+                      data-content="123">查看
+                    </button></td>
+                </tr>
               @endforeach
             
           </table>
@@ -46,4 +58,5 @@
          @if (!empty($message))
             <script>webix.message("{{$message}}"); </script>
          @endif
+
 @stop
