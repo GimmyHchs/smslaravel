@@ -11,7 +11,7 @@ use App\Course;
 use App\Http\Requests\StudentAddRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
-use App\Excelchecker\Excelchecker;
+use App\Excelchecker\ExcelChecker;
 
 
 class SmsStudentController extends Controller {
@@ -152,6 +152,7 @@ class SmsStudentController extends Controller {
 		}
 		$student->name=$request->get('input_name');
 		$student->tel='886'.substr($request->get('input_tel'),1,9);
+		if(count(tel))
 		$student->tel_parents='886'.substr($request->get('input_tel_parents'),1,9);
 		$student->about=$request->get('input_about');
 		$student->save();
@@ -187,9 +188,17 @@ class SmsStudentController extends Controller {
 		$reader = Excel::load(Input::file('excelfile')->getRealPath());
 		$reader->setActiveSheetIndex(0);
 		//dd($reader->getActiveSheet());
+		
+		$checker =new ExcelChecker();
+		
 		foreach ($reader->getActiveSheet()->getRowIterator() as $rowindex => $row) {
+			//
 		$student = new Student;
+		$cellValues=[];
+		
+
         foreach ($row->getCellIterator() as $cellindex => $cell) {
+
         	if(!is_null($cell)&&$rowindex==1)
         	{
         		switch ($cellindex)
@@ -219,37 +228,39 @@ class SmsStudentController extends Controller {
                 {
                        case 'A':
             				$student->name=$cell->getValue();
+            				array_push($cellValues, $cell->getValue());
             				//dd($student->name);
             				break;
 						case 'B':
             				$student->tel=$cell->getValue();
+            				array_push($cellValues,$cell->getValue());
+            				//$count++;
             				//dd($student->tel);
             				break;
             			case 'C':
             				$student->tel_parents=$cell->getValue();
-            				//dd($contents);
-            			
-            			default:
-            				$student->age=16;
-            				$student->sex='男';
-            				$lastid=$this->student->get()->last()->id;
-							$lastid++;
-							if($lastid<10)
-								$student->barcode='cc0000'.$lastid;
-							else if($lastid<100)
-								$student->barcode='cc000'.$lastid;
-							else if($lastid<1000)
-								$student->barcode='cc00'.$lastid;
+							//if(is_null($cell->getValue()))
+							//	dd($cellValues);
+            				array_push($cellValues, $cell->getValue());
 
-							$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
+            				//dd($cellValues);
+            				//$count++;
+            				//dd($contents);
+            				$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
+
 							if(!is_null($samestudent))
 							{
-								$message.='省略重複名單 : '.$samestudent->name.'\n\r -----------';
+								$message.='省略已重複名單 : '.$samestudent->name.'\n\r ---------';
 							}
 							else
 							{
-								 $student->save();
+								 //$student->save();
+
+								$checker->addRow($cellValues);
 							}
+            			default:
+
+
             			   
             				break;
             	}
@@ -257,7 +268,58 @@ class SmsStudentController extends Controller {
         }
 
     	}
-    	Session::put('message','You Import a Excel File-success '.$message);
+    //	dd($cellValues);
+
+    	$checker->checkRowList();
+    	$studentlist=$checker->getCheckedList();
+    	//dd($studentlist);
+    	foreach ($studentlist as $key => $student) {
+    		$newstudent = new Student;
+    		$newstudent->name = $student[0];
+    		$newstudent->tel = $student[1];
+    		$newstudent->tel_parents = $student[2];
+    		$newstudent->age=16;
+            $newstudent->sex='男';
+
+            //Tel number checker
+            if(strlen($student[1])==12||strlen($student[1])==10||strlen($student[1])==9)
+            {
+				if(strlen($student[1])==9)
+					$newstudent->tel='886'.$student[1];
+				else if (strlen($student[1])==10) 
+					$newstudent->tel='886'.substr($student[1], 1);
+			}
+            else
+            	$newstudent->tel='錯誤的電話格式';
+
+            if(strlen($student[2])==12||strlen($student[2])==10||strlen($student[2])==9)
+            {
+				if(strlen($student[2])==9)
+					$newstudent->tel_parents='886'.$student[2];
+				else if (strlen($student[2])==10) 
+					$newstudent->tel_parents='886'.substr($student[2], 1);
+			}
+            else
+            	$newstudent->tel_parents='錯誤的電話格式';
+
+
+            //Barcode Checker
+    		$lastid=$this->student->get()->last()->id;
+			$lastid++;
+			if($lastid<10)
+					$newstudent->barcode='cc0000'.$lastid;
+			else if($lastid<100)
+					$newstudent->barcode='cc000'.$lastid;
+			else if($lastid<1000)
+					$newstudent->barcode='cc00'.$lastid;
+
+			$samestudent=$this->student->get()->where('tel',$newstudent->tel)->where('tel_parents',$newstudent->tel_parents)->where('name',$newstudent->name)->first();
+			if(is_null($samestudent))
+    		$newstudent->save();
+    	}
+    	//dd($checker->getErrorMessage());
+    	//dd($checker->getCheckedList());
+    	Session::put('message','You Import a Excel File-success '.$message.$checker->getErrorMessage());
 		return redirect('/student');
 
 	}
@@ -279,11 +341,27 @@ class SmsStudentController extends Controller {
 			});
 
 		})->download('xlsx');
-	/*
-		$checker = new Excelchecker();
-		$checker->check(['a','a']);
-		dd($checker->getCheckCount());
+		
+
+		/*
+		$checker = new ExcelChecker();
+
+		
+		$newstudent = new Student;
+		$newstudent->name='A';
+		$newstudentlist=[];
+		$checker->addObject($newstudent);
+		array_push($newstudentlist, $newstudent);
+
+		$newstudent = new Student;
+		$newstudent->name='B';
+		$checker->addObject($newstudent);
+		array_push($newstudentlist, $newstudent);
+
+		//$checker->ddObjectList();
+		$checker->saveAllObject();
 		*/
+
 	}
 
 }
