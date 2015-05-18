@@ -11,6 +11,9 @@ use App\Course;
 use App\Http\Requests\StudentAddRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
+use App\Excelchecker\Excelchecker;
+
+
 class SmsStudentController extends Controller {
 
 	/*
@@ -176,7 +179,10 @@ class SmsStudentController extends Controller {
 	}
 	public function uploadExcel(Request $request)
 	{
+		$message="";
 		$file = $request->get('excelfile');
+		if(is_null($file))
+			dd('Please choose a ExcelFile...');
 		$contents = "";
 		$reader = Excel::load(Input::file('excelfile')->getRealPath());
 		$reader->setActiveSheetIndex(0);
@@ -200,7 +206,6 @@ class SmsStudentController extends Controller {
             				if($cell->getValue()!='家長手機')
         					dd('Excel內容格式錯誤...');
             				//dd($contents);
-     
             			default:
             				break;
             	}
@@ -208,6 +213,8 @@ class SmsStudentController extends Controller {
         	}
             else if (!is_null($cell)&&$rowindex!=1) {
             	
+            	
+
                 switch ($cellindex)
                 {
                        case 'A':
@@ -233,19 +240,29 @@ class SmsStudentController extends Controller {
 								$student->barcode='cc000'.$lastid;
 							else if($lastid<1000)
 								$student->barcode='cc00'.$lastid;
-            			    $student->save();
+
+							$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
+							if(!is_null($samestudent))
+							{
+								$message.='省略重複名單 : '.$samestudent->name.'\n\r -----------';
+							}
+							else
+							{
+								 $student->save();
+							}
+            			   
             				break;
             	}
        	 	}
         }
 
     	}
-    	Session::put('message','You Import a Excel File-success');
+    	Session::put('message','You Import a Excel File-success '.$message);
 		return redirect('/student');
 
 	}
 	public function downloadExcel(){
-
+		
 		Excel::create('補習班全員名單', function($excel) {
 
    			 // Call writer methods here
@@ -262,7 +279,11 @@ class SmsStudentController extends Controller {
 			});
 
 		})->download('xlsx');
-
+	/*
+		$checker = new Excelchecker();
+		$checker->check(['a','a']);
+		dd($checker->getCheckCount());
+		*/
 	}
 
 }

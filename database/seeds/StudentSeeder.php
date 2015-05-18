@@ -12,7 +12,7 @@ class StudentSeeder extends Seeder {
     
       Student::create([
 
-      	 'name'		   	=> 		'測試A君',
+      	 'name'		   	=> 		'測試A',
       	 'sex'          =>      '男',
          'tel'  		=> 		'886922222222',
          'tel_parents'  => 		'886933333333',
@@ -24,7 +24,7 @@ class StudentSeeder extends Seeder {
       ]);
       Student::create([
         
-      	 'name'		   	=> 		'測試B君',
+      	 'name'		   	=> 		'測試B',
       	 'sex'          =>      '女',
          'tel'  		=> 		'886999999543',
          'barcode'  =>     'cc00002',
@@ -37,7 +37,7 @@ class StudentSeeder extends Seeder {
       ]);
     	Student::create([
         
-      	 'name'		   	=> 		'測試C君',
+      	 'name'		   	=> 		'測試C',
       	 'sex'          =>      '男',
          'tel'  		=> 		'886922412752',
          'tel_parents'  => 		'886933727553',
@@ -50,7 +50,7 @@ class StudentSeeder extends Seeder {
       ]);
       Student::create([
         
-         'name'       =>    '測試D君',
+         'name'       =>    '測試D',
          'sex'          =>      '男',
          'tel'      =>    '886922412755',
          'tel_parents'  =>    '886933727558',
