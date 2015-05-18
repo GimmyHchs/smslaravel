@@ -181,8 +181,8 @@ class SmsStudentController extends Controller {
 	{
 		$message="";
 		$file = $request->get('excelfile');
-		if(is_null($file))
-			dd('Please choose a ExcelFile...');
+		//if(is_null($file))
+			//dd('Please choose a ExcelFile...');
 		$contents = "";
 		$reader = Excel::load(Input::file('excelfile')->getRealPath());
 		$reader->setActiveSheetIndex(0);
