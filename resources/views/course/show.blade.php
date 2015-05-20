@@ -57,8 +57,6 @@
                     <div class="modal-body">
                           {!!Form::open(['url'=>'course/'.$course->id.'/patchstudent','method'=>'post'])!!}
                      <div class="checkbox">
-                          {!!Form::label('發送對象')!!}
-                          {!!Form::text('input_target','',['class'=>'form-control disable', 'placeholder'=>"Enter Cellphone number"])!!}
                           @foreach($allstudents as $mystudent)
                           <label>
                           {!!Form::checkbox('checkbox'.$mystudent->id,$mystudent->id,true,[])!!}
