@@ -75,7 +75,7 @@
                        data-container="body" data-toggle="popover" data-placement="right"
                        title="已加入的課程"
                        data-content="{!!nl2br($str_course)!!}
-                      ">查看
+                      ">課程
                     </a></td>
                 </tr>
               @endforeach

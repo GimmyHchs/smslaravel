@@ -95,8 +95,10 @@ class SmsCourseController extends Controller {
                  ->where('courses_students.course_id', '=', $myid);
         })->get();
 		//dd($course);
+
+		$allstudents=$this->student->get();
 		
-		return view('course.show',compact('students','course'));
+		return view('course.show',compact('students','course','allstudents'));
 	}
 
 	/**
@@ -164,6 +166,32 @@ class SmsCourseController extends Controller {
    		$course->delete();
 
 		return redirect('/course');
+	}
+
+	public function patchstudent($id,Request $request){
+		$studentcount=count($this->student->get());
+		$checkboxvalue=[];
+		for($i=1;$i<=$studentcount;$i++){
+			array_push($checkboxvalue,$request->get('checkbox'.$i));
+//			array_push($checkboxname, 'checkbox'.$i);
+		}
+
+		foreach ($checkboxvalue as $key => $value) {
+			if(!is_null($value))
+			{
+
+				$check=is_null($this->coursestudent->where('course_id',$id)->where('student_id',$value)->first());
+				if($check)
+				{
+					$newcoursestudent = new CourseStudent;
+					$newcoursestudent->course_id=$id;
+					$newcoursestudent->student_id=$value;
+					$newcoursestudent->save();
+				}
+
+			}
+		}
+		return redirect('/course/'.$id);
 	}
 
 }
