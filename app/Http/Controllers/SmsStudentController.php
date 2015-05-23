@@ -34,18 +34,13 @@ class SmsStudentController extends Controller {
 
 	public function index()
 	{
-		//
+		//get all student data form database
 		$students = $this->student->get();
+
+		//join [courses and courses_students table] for showing which course has already be 
 		$coursestudents = $this->coursestudent->join('courses','courses.id','=','courses_students.course_id')->select('courses.name','courses_students.student_id')->get();
-		$coursestudentarray = array();
-		// for($i=0;$i<count($students);$i++)
-		// {
-		// 	 $mycount($coursestudent->where('student_id',$students[$i]->id))); 
-	 // 	}
-	 	//$mycount=count($coursestudent->where('student_id',$students[0]->id)); 
 
-//		dd($mycount);
-
+		//if we have Session message , compact to student/index.blade.php
 		$message = Session::get('message');
 		Session::forget('message');
 		 
@@ -72,10 +67,10 @@ class SmsStudentController extends Controller {
 	{
 		//Check The Input
 	
-
+		//add lastid 1 for generate barcode
 		$lastid=$this->student->get()->last()->id;
 		$lastid++;
-		//$lastid=10;
+
 		$student = new Student;
 		$student->name = $request->get('input_name');
 		$student->age = $request->get('input_age');
@@ -89,11 +84,10 @@ class SmsStudentController extends Controller {
 			$student->barcode='cc000'.$lastid;
 		else if($lastid<1000)
 			$student->barcode='cc00'.$lastid;
-		//$lastid=$laststudent->id;
-		$isaddstudent=true;
 
 		$student->save();
-		//dd($student->tel_parents);
+		
+
 		Session::put('message', 'You Add a Student '.$student->name);
 		return redirect('/student');
 		
@@ -108,13 +102,15 @@ class SmsStudentController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		//get student null checker Because some Mysql Version will not find correct target from integer
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
 		}
+
 		$message = Session::get('message');
 		Session::forget('message');
+
 		return view('student.show',compact('student','message'));
 
 	}
@@ -127,13 +123,14 @@ class SmsStudentController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		//get student null checker Because some Mysql Version will not find correct target from integer
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
 		}
 		$student->tel='0'.substr($student->tel,3,9);
 		$student->tel_parents='0'.substr($student->tel_parents,3,9);
+
 		return view('student.edit',compact('student'));
 	}
 
@@ -145,17 +142,17 @@ class SmsStudentController extends Controller {
 	 */
 	public function update($id,StudentAddRequest $request)
 	{
-		//
+		//get student null checker Because some Mysql Version will not find correct target from integer
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
 		}
 		$student->name=$request->get('input_name');
 		$student->tel='886'.substr($request->get('input_tel'),1,9);
-		if(count(tel))
 		$student->tel_parents='886'.substr($request->get('input_tel_parents'),1,9);
 		$student->about=$request->get('input_about');
 		$student->save();
+
 		Session::put('message',$student->name);
 		return redirect('/student/'.$id);
 	}
@@ -168,12 +165,12 @@ class SmsStudentController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//get student null checker Because some Mysql Version will not find correct target from integer
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
 		}
-		//dd($student->name.'You Delete a Student '.$student->name);
+
 		Session::put('message','You Delete a Student '.$student->name);
 		$student->delete();
 		return redirect('/student');
@@ -181,16 +178,17 @@ class SmsStudentController extends Controller {
 	public function uploadExcel(Request $request)
 	{
 		$message="";
-		$file = $request->get('excelfile');
-		//if(is_null($file))
-			//dd('Please choose a ExcelFile...');
+
+		//get Excel file RealPath from client
 		$contents = "";
 		$reader = Excel::load(Input::file('excelfile')->getRealPath());
 		$reader->setActiveSheetIndex(0);
-		//dd($reader->getActiveSheet());
-		
+	
+		//this checker class will check ALL "row" if error,same,null or not
+		//檢查是否有完全重複的欄位、空值，並將排除所有錯誤之後的ROW資料，以陣列方式存在$checker->$checkedlist
 		$checker =new ExcelChecker();
 		
+		//double foreach  for i=row  j=cell ,   
 		foreach ($reader->getActiveSheet()->getRowIterator() as $rowindex => $row) {
 			//
 		$student = new Student;
@@ -198,7 +196,7 @@ class SmsStudentController extends Controller {
 		
 
         foreach ($row->getCellIterator() as $cellindex => $cell) {
-
+        	//check A1 to C1 formate
         	if(!is_null($cell)&&$rowindex==1)
         	{
         		switch ($cellindex)
@@ -221,46 +219,33 @@ class SmsStudentController extends Controller {
 
         	}
             else if (!is_null($cell)&&$rowindex!=1) {
-            	
-            	
 
                 switch ($cellindex)
                 {
                        case 'A':
             				$student->name=$cell->getValue();
             				array_push($cellValues, $cell->getValue());
-            				//dd($student->name);
             				break;
 						case 'B':
             				$student->tel=$cell->getValue();
             				array_push($cellValues,$cell->getValue());
-            				//$count++;
-            				//dd($student->tel);
             				break;
             			case 'C':
             				$student->tel_parents=$cell->getValue();
-							//if(is_null($cell->getValue()))
-							//	dd($cellValues);
             				array_push($cellValues, $cell->getValue());
 
-            				//dd($cellValues);
-            				//$count++;
-            				//dd($contents);
-            				$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
-
+            			default:
+            				//ignore the same student between Mysql DB and Excel file
+							$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
 							if(!is_null($samestudent))
 							{
 								$message.='省略已重複名單 : '.$samestudent->name.'\n\r ---------';
 							}
 							else
 							{
-								 //$student->save();
-
+								//此欄(row)存入ExcelChecker
 								$checker->addRow($cellValues);
 							}
-            			default:
-
-
             			   
             				break;
             	}
@@ -268,11 +253,12 @@ class SmsStudentController extends Controller {
         }
 
     	}
-    //	dd($cellValues);
-
+    	//check all row ,get checkedArrayList;
     	$checker->checkRowList();
     	$studentlist=$checker->getCheckedList();
-    	//dd($studentlist);
+    	
+
+    	//add new import students into Mysql DB
     	foreach ($studentlist as $key => $student) {
     		$newstudent = new Student;
     		$newstudent->name = $student[0];
@@ -317,8 +303,7 @@ class SmsStudentController extends Controller {
 			if(is_null($samestudent))
     		$newstudent->save();
     	}
-    	//dd($checker->getErrorMessage());
-    	//dd($checker->getCheckedList());
+
     	Session::put('message','You Import a Excel File-success '.$message.$checker->getErrorMessage());
 		return redirect('/student');
 
@@ -336,31 +321,9 @@ class SmsStudentController extends Controller {
 				 	array_push($data, [$student->name,$student->tel,$student->tel_parents]);
 				 }
 				$sheet->fromArray($data,null,'A1',false,false);
-				//$sheet->fromArray($data,null,'A2',false,false);
-
 			});
 
 		})->download('xlsx');
-		
-
-		/*
-		$checker = new ExcelChecker();
-
-		
-		$newstudent = new Student;
-		$newstudent->name='A';
-		$newstudentlist=[];
-		$checker->addObject($newstudent);
-		array_push($newstudentlist, $newstudent);
-
-		$newstudent = new Student;
-		$newstudent->name='B';
-		$checker->addObject($newstudent);
-		array_push($newstudentlist, $newstudent);
-
-		//$checker->ddObjectList();
-		$checker->saveAllObject();
-		*/
 
 	}
 

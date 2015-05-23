@@ -47,7 +47,7 @@
                 <th>性別</th> 
                 <th>電話</th>
                 <th>家長電話</th>
-                <th>已加入課程</th>
+                <th></th>
               </tr>
 
               @foreach($students as $student) 
@@ -70,13 +70,27 @@
                 <td>{{$student->sex}}</td>
                 <td>{{$student->tel}}</td>
                 <td>{{$student->tel_parents}}</td>
-                <td><a tabindex="0" role="button" class="btn btn-warning"
+                <td><div class="row">
+                       <div class="col-md-2">
+                       <a tabindex="0" role="button" class="btn btn-warning"
                        data-trigger="focus" 
                        data-container="body" data-toggle="popover" data-placement="right"
                        title="已加入的課程"
                        data-content="{!!nl2br($str_course)!!}
                       ">課程
-                    </a></td>
+                    </a></div>
+                    <div class="col-md-2">
+                      {!!Form::open(['method'=>'GET','url'=>'/student/'.$student->id.'/edit'])!!}
+                      {!!Form::submit('修改',['class'=>'btn btn-info'])!!}
+                      {!!Form::close()!!}
+                    </div>
+                    <div class="col-md-1">
+                    {!!Form::open(['url'=>'student/'.$student->id,'method'=>'Delete'])!!}
+                        {!!Form::submit('刪除',['class'=>'btn btn-danger'])!!}
+                     {!!Form::close()!!}
+                     </div>
+                     </div>
+                    </td>
                 </tr>
               @endforeach
             

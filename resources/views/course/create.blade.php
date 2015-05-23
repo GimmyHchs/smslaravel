@@ -3,6 +3,20 @@
 
 <div class="row" >
 <div class="col-md-6 col-md-offset-3" >
+
+          <!-- Below for Error Message -->
+          @if (count($errors) > 0)
+            <div class="alert alert-danger">
+              <strong>Whoops!</strong> There were some problems with your input.<br><br>
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+          <!-- End for Error Message -->
+
 <div class="panel panel-default">
 <div class="panel-heading">新增課程</div>
 

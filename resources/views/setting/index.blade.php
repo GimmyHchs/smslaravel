@@ -134,6 +134,7 @@
 				        }, delay);
 				    }
 
+
 				</script>
 		
 		
@@ -158,6 +159,21 @@
 			     	  		{!!Form::submit('發送一則測試簡訊',['class'=>'btn btn-primary'])!!}
 			     	  		{!!Form::close()!!}
 
+			     	  	</div>
+		     	  	</div>
+		     	 </div>
+
+
+
+		     	 <div class="col-md-12 col-md-offset-0" >
+					<div class="panel panel-default">
+			     	  	<div class="panel-heading">ProgressBar測試</div>
+			     	  	<div class="panel-body">
+						<div class="progress">
+						  <div class="progress-bar progress-bar-striped active" role="progressbar"
+						  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+						  </div>
+						</div>
 			     	  	</div>
 		     	  	</div>
 		     	 </div>

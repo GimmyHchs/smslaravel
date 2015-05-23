@@ -13,13 +13,18 @@
 
 Route::get('/', 'SmsHomeController@index');
 
-//Route::get('home', 'HomeController@index');
+//Test sms api Rout Control
 Route::post('/setting/smssend','SmsSettingController@sendsms');
+
+//Excel Route Control
 Route::post('/student/uploadexcel','SmsStudentController@uploadExcel');
 Route::get('/student/downloadexcel','SmsStudentController@downloadExcel');
 
+//Patch students into a Course Route Control
 Route::post('/course/{course}/patchstudent','SmsCourseController@patchstudent');
 
+
+//All default Route Please Check in command [ $ php artisan route:list ]  in smslaravel root path
 $router->resource('home','SmsHomeController');
 $router->resource('course','SmsCourseController');
 $router->resource('student','SmsStudentController');
@@ -27,6 +32,7 @@ $router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
 
+//laravel default login route control
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

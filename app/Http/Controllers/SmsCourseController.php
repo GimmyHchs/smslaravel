@@ -9,6 +9,7 @@ use App\Course;
 use App\Student;
 Use App\CourseStudent;
 Use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CourseAddRequest;
 
 class SmsCourseController extends Controller {
 
@@ -50,7 +51,7 @@ class SmsCourseController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(CourseAddRequest $request)
 	{
 		//
 		$newcourse= new Course;
@@ -124,7 +125,7 @@ class SmsCourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id,Request $request)
+	public function update($id,CourseAddRequest $request)
 	{
 		//
 		$course=$this->course->get()->where('id',$id)->first();
