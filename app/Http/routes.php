@@ -15,6 +15,7 @@ Route::get('/', 'SmsHomeController@index');
 
 //Test sms api Rout Control
 Route::post('/setting/smssend','SmsSettingController@sendsms');
+Route::post('/student/{student}/smssend','SmsStudentController@sendsms');
 
 //Excel Route Control
 Route::post('/student/uploadexcel','SmsStudentController@uploadExcel');

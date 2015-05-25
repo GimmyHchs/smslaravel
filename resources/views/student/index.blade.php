@@ -84,11 +84,17 @@
                       {!!Form::submit('修改',['class'=>'btn btn-info'])!!}
                       {!!Form::close()!!}
                     </div>
-                    <div class="col-md-1">
-                    {!!Form::open(['url'=>'student/'.$student->id,'method'=>'Delete'])!!}
-                        {!!Form::submit('刪除',['class'=>'btn btn-danger'])!!}
-                     {!!Form::close()!!}
+
+                    <div class="col-md-2">
+                      {!!Form::open(['url'=>'student/'.$student->id,'method'=>'Delete'])!!}
+                      {!!Form::submit('刪除',['class'=>'btn btn-danger'])!!}
+                      {!!Form::close()!!}
                      </div>
+                     <div class="col-md-1">
+                      {!!Form::open(['method'=>'POST','url'=>'/student/'.$student->id.'/smssend'])!!}
+                      {!!Form::submit('測試簡訊',['class'=>'btn btn-info'])!!}
+                      {!!Form::close()!!}
+                    </div>
                      </div>
                     </td>
                 </tr>

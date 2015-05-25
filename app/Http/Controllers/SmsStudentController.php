@@ -12,6 +12,12 @@ use App\Http\Requests\StudentAddRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
 use App\Excelchecker\ExcelChecker;
+use App\Smsapi\Sender;
+
+
+	const API = "http://nov.mynet.com.tw:9090/api";
+	const KEY = "b67b96136e34ccd7b42656cd25";
+	const SECRET = "d739d9c7015a93064aacff78c8";
 
 
 class SmsStudentController extends Controller {
@@ -324,6 +330,35 @@ class SmsStudentController extends Controller {
 			});
 
 		})->download('xlsx');
+
+	}
+	public function sendsms($id){
+
+		$student=$this->student->get()->where('id',$id)->first();
+		if(is_null($student))
+			$student=$this->student->get()->where('id',intval($id))->first();
+		if(!is_null($student))
+		{
+			$sender = new Sender(API, KEY, SECRET);
+			$message="SmsLaravel 測試簡訊 Date: ".date("Y-m-d")."    ".date("h:i:sa");
+			$from="886911111111";
+			$to=[
+				$student->tel_parents
+			];
+			$sender->from($from);
+			$sender->to($to);
+			$sender->content($message);
+
+			$sender->send();
+			Session::put('message', 'You send A test SMS Message to '.$to[0]);
+		}
+		else
+		{
+			dd("查無此人");
+		}
+
+		return redirect('/student');
+		
 
 	}
 
