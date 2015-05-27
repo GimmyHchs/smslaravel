@@ -33,7 +33,7 @@ $router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
 
-Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
+Route::group(['domain' => '{account}.s1.send2me.cc'], function()
 {
 
     Route::get('/', function($account)
