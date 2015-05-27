@@ -39,9 +39,8 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     Route::get('/', function($account)
     {
     	Session::set('subdomain',$account);
-    	//DB::setDefaultConnection('mysql_subdomainusers');
-
-    	$users = DB::connection('smsuserdatabase')->select('select * from users where domain = hchs',array(1));
+    	DB::setDefaultConnection('mysql_subdomainusers');
+    	$users = DB::select('select * from users where domain = hchs',array(1));
     	//$results = DB::select('select * from users where domain = '.$account,null);
     	dd($users);
     	$dbname=$account;
