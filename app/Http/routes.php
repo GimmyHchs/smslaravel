@@ -40,7 +40,7 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     {
     	Session::set('subdomain',$account);
     	DB::setDefaultConnection('mysql_subdomainusers');
-    	$users = DB::select('select * from users where domain ="'.$account.'"',array(1));
+    	$users = DB::connection('mysql_subdomainusers')->select('select * from users where domain ="'.$account.'"',array(1));
     	if(empty($users))
     		dd('empty');
     	else
