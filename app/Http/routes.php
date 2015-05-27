@@ -26,11 +26,11 @@ Route::get('/student/downloadexcel','SmsStudentController@downloadExcel');
 Route::post('/course/{course}/patchstudent','SmsCourseController@patchstudent');
 
 //All default Route Please Check in command [ $ php artisan route:list ]  in smslaravel root path
-/*$router->resource('home','SmsHomeController');
+$router->resource('home','SmsHomeController');
 $router->resource('course','SmsCourseController');
 $router->resource('student','SmsStudentController');
 $router->resource('messagestate','SmsMessageController');
-$router->resource('setting','SmsSettingController');*/
+$router->resource('setting','SmsSettingController');
 
 
 Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
@@ -48,8 +48,7 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     	//dd(User::get());
     	//dd('change DB to '.$account);
 
-    	Route::resource('home','SmsHomeController');
-    	Route::resource('student','SmsStudentController');
+
 		return Redirect::to('/home');
         //
     });

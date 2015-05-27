@@ -34,6 +34,10 @@ class SmsStudentController extends Controller {
        $this->student=$student;
        $this->coursestudent=$coursestudent;
        $this->course=$course;
+       if(!is_nan(Session::get('subdomain'))
+       {
+       	 dd('you have sub domain');
+       }
        //$this->bank=$bank;
 	}
 
