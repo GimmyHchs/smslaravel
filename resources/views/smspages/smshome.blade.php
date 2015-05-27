@@ -23,7 +23,7 @@
 		
 		<div class="container">
 			<div class="content">
-			@if(is_null($subdomain))
+			@if(empty($subdomain))
 				<div class="title">SMS Service with Laravel</div>
 				<div class="quote">www.mynet.com.tw</div>
 			@else
