@@ -40,7 +40,7 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     {
     	Session::set('subdomain',$account);
     	DB::setDefaultConnection('mysql_subdomainusers');
-    	$results = DB::select('select * from users where domain = ?', $account);
+    	$results = DB::select('select * from users where domain = '.$account,null);
     	dd($results);
     	$dbname=$account;
     	Config::set('database.connections.mysql_hchs.database',$dbname);
