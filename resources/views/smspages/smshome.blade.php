@@ -28,7 +28,7 @@
 				<div class="quote">www.mynet.com.tw</div>
 			@else
 				<div class="title">{{$subdomain}} SMS Service</div>
-				<div class="quote">{{$subdomain}}.mynet.com.tw</div>
+				<div class="quote">{{$subdomain}}.send2me.cc</div>
 			@endif
 
 				
