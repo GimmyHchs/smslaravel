@@ -27,7 +27,7 @@
 				<div class="title">SMS Service with Laravel</div>
 				<div class="quote">www.mynet.com.tw</div>
 			@else
-				<div class="title">{{$subdomain}} SMS Service with Laravel</div>
+				<div class="title">{{$subdomain}}1 SMS Service with Laravel</div>
 				<div class="quote">{{$subdomain}}.mynet.com.tw</div>
 			@endif
 
