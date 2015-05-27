@@ -44,7 +44,7 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     	$dbname=$account;
     	Config::set('database.connections.mysql_hchs.database',$dbname);
     	DB::setDefaultConnection('mysql_hchs');
-
+    	
     	dd('change DB to '.$account);
         //
     });
