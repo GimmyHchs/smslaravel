@@ -33,7 +33,7 @@ $router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
 
-Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
+Route::group(['domain' => 'hchs.school-mynet.cloudapp.net'], function()
 {
 
     Route::get('/', function()
