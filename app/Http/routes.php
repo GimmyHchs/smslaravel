@@ -12,7 +12,7 @@ use App\User;
 |
 */
 
-Route::get('/', 'SmsHomeController@index');
+//Route::get('/', 'SmsHomeController@index');
 
 //Test sms api Rout Control
 Route::post('/setting/smssend','SmsSettingController@sendsms');
