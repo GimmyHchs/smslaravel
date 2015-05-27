@@ -40,18 +40,13 @@ Route::group(['domain' => '{account}.send2me.cc'], function()
     {
     	Session::set('subdomain',$account);
     	//DB::setDefaultConnection('mysql_subdomainusers');
-    	$users=DomainUser::get()->where('domain',$account);
-    	if(empty($users))
-    		dd('404');
-    	else
-    	{
+    	//$users=DomainUser::get()->where('domain',$account);
 	    	//dd($users);
 	    	$dbname=$account;
-	    	Config::set('database.connections.mysql_hchs.database',$dbname);
-	    	DB::setDefaultConnection('mysql_hchs');
+	    	Config::set('database.connections.mysql_subdomain.database',$dbname);
+	    	DB::setDefaultConnection('mysql_subdomain');
 
 			return Redirect::to('/home');
-		}
         //
     });
 
