@@ -13,7 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
 use App\Excelchecker\ExcelChecker;
 use App\Smsapi\Sender;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 	const API = "http://nov.mynet.com.tw:9090/api";
 	const KEY = "b67b96136e34ccd7b42656cd25";
@@ -34,9 +35,13 @@ class SmsStudentController extends Controller {
        $this->student=$student;
        $this->coursestudent=$coursestudent;
        $this->course=$course;
+
+       //subdomain check   if  get session will change the Database
        if(!is_null(Session::get('subdomain')))
        {
-       	 dd('you have sub domain');
+       	 $dbname='smsdatabase_'.Session::get('subdomain');
+       	 Config::set('database.connections.mysql_subdomain.database',$dbname);
+    	 DB::setDefaultConnection('mysql_subdomain');
        }
        //$this->bank=$bank;
 	}

@@ -8,14 +8,10 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Student;
 Use App\CourseStudent;
-Use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CourseAddRequest;
-use App\Smsapi\Sender;
 
-
-	const API = "http://nov.mynet.com.tw:9090/api";
-	const KEY = "b67b96136e34ccd7b42656cd25";
-	const SECRET = "d739d9c7015a93064aacff78c8";
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 
 class SmsCourseController extends Controller {
@@ -202,36 +198,6 @@ class SmsCourseController extends Controller {
 		return redirect('/course/'.$id);
 	}
 
-	public function sendsms($id){
 
-		$sender = new Sender(API, KEY, SECRET);
-		/*
-		$message = $request->get('input_content')." \n set time at  ".date("Y-m-d")."\n".date("h:i:sa");
-		$from = $request->get('input_from');
-
-		if(substr($request->get('input_target'), 0,1)=="0")
-		{
-			$to = [
-				'886'.substr($request->get('input_target'), 1,9)
-			];
-		}
-		else{
-			$to = [
-				$request->get('input_target')
-			];
-		}
-		$sender->from($from);
-		$sender->to($to);
-		$sender->content($message);
-
-		$sender->send();
-		$target = $request->get('input_target');
-		//$issend = true;
-		//dd($to);
-		Session::put('message', $target);
-		return redirect('/setting');
-		*/
-
-	}
 
 }

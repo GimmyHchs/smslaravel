@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Smsapi\Sender;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 	const API = "http://nov.mynet.com.tw:9090/api";
 	const KEY = "b67b96136e34ccd7b42656cd25";

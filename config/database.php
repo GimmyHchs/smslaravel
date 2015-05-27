@@ -63,7 +63,7 @@ return [
 			'prefix'    => '',
 			'strict'    => false,
 		],
-		'mysql_hchs' => [
+		'mysql_subdomain' => [
 			'driver'    => 'mysql',
 			'host'      => env('DB_HOST', 'localhost'),
 			'database'  => '',

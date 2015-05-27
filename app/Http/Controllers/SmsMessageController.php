@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Message;
 use App\Student;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
+
 class SmsMessageController extends Controller {
 
 	/**
