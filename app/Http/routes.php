@@ -42,16 +42,16 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     	//DB::setDefaultConnection('mysql_subdomainusers');
     	$users=DomainUser::get()->where('domain',$account);
     	if(empty($users))
-    		dd('empty');
+    		dd('404');
     	else
-    		dd('you got');
-    	//$results = DB::select('select * from users where domain = '.$account,null);
-    	dd($users);
-    	$dbname=$account;
-    	Config::set('database.connections.mysql_hchs.database',$dbname);
-    	DB::setDefaultConnection('mysql_hchs');
+    	{
+	    	//dd($users);
+	    	$dbname=$account;
+	    	Config::set('database.connections.mysql_hchs.database',$dbname);
+	    	DB::setDefaultConnection('mysql_hchs');
 
-		return Redirect::to('/home');
+			return Redirect::to('/home');
+		}
         //
     });
 
