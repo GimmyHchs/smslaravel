@@ -36,7 +36,7 @@ $router->resource('setting','SmsSettingController');
 Route::group(['domain' => 'hchs.school-mynet.cloudapp.net'], function()
 {
 
-    Route::get('/', function()
+    Route::get('/happy', function()
     {
     	dd('sub domain happy');
         //
