@@ -40,7 +40,9 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     {
     	Session::set('subdomain',$account);
 
-    	dd(Session::get('subdomain'));
+    	//dd(Session::get('subdomain'));
+    	DB::setDefaultConnection('mysql_hchs');
+    	dd('change DB to '.$account);
         //
     });
 
