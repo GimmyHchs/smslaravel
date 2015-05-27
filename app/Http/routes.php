@@ -33,6 +33,18 @@ $router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
 
+Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
+{
+
+    Route::get('user/{id}', function($account, $id)
+    {
+    	dd('sub domain happy');
+        //
+    });
+
+});
+
+
 //laravel default login route control
 Route::controllers([
 	'auth' => 'Auth\AuthController',
