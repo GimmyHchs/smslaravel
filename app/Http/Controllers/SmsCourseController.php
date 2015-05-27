@@ -23,11 +23,19 @@ class SmsCourseController extends Controller {
 	 */
 	public function __construct(Course $course,Student $student,CourseStudent $coursestudent){
 
-      // $this->middleware('auth');
+       // $this->middleware('auth');
        //$this->accountbank=$accountbank;
        $this->course=$course;
        $this->student=$student;
        $this->coursestudent=$coursestudent;
+
+		//subdomain check   if  get session will change the Database
+       if(!is_null(Session::get('subdomain')))
+       {
+       	 $dbname='smsdatabase_'.Session::get('subdomain');
+       	 Config::set('database.connections.mysql_subdomain.database',$dbname);
+    	 DB::setDefaultConnection('mysql_subdomain');
+       }
        //$this->bank=$bank;
 	}
 	public function index(Course $courses)

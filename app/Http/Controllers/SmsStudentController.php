@@ -43,7 +43,6 @@ class SmsStudentController extends Controller {
        	 Config::set('database.connections.mysql_subdomain.database',$dbname);
     	 DB::setDefaultConnection('mysql_subdomain');
        }
-       //$this->bank=$bank;
 	}
 
 

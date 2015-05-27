@@ -23,7 +23,18 @@ class SmsSettingController extends Controller {
 	 *
 	 * @return Response
 	 */
+	public function __construct(){
 
+
+	   //subdomain check   if  get session will change the Database
+	   if(!is_null(Session::get('subdomain')))
+       {
+       	 $dbname='smsdatabase_'.Session::get('subdomain');
+       	 Config::set('database.connections.mysql_subdomain.database',$dbname);
+    	 DB::setDefaultConnection('mysql_subdomain');
+       }
+
+	}
 	
 
 
