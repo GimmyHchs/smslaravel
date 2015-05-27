@@ -17,7 +17,7 @@ class SmsHomeController extends Controller {
 	   //subdomain check   if  get session will change the Database
 	   if(!is_null(Session::get('subdomain')))
        {
-       	 $subdomain=Session::get('subdomain');
+       	 $this->subdomain=Session::get('subdomain');
        	 $dbname='smsdatabase_'.Session::get('subdomain');
        	 Config::set('database.connections.mysql_subdomain.database',$dbname);
     	 DB::setDefaultConnection('mysql_subdomain');
@@ -29,7 +29,7 @@ class SmsHomeController extends Controller {
 	public function index()
 	{
 		//
-
+		$subdomain=$this->subdomain;
 		return view('smspages.smshome',compact('subdomain'));
 	}
 
