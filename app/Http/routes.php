@@ -27,11 +27,7 @@ Route::post('/course/{course}/patchstudent','SmsCourseController@patchstudent');
 
 
 //All default Route Please Check in command [ $ php artisan route:list ]  in smslaravel root path
-$router->resource('home','SmsHomeController');
-$router->resource('course','SmsCourseController');
-$router->resource('student','SmsStudentController');
-$router->resource('messagestate','SmsMessageController');
-$router->resource('setting','SmsSettingController');
+
 
 
 Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
@@ -46,8 +42,15 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     	Config::set('database.connections.mysql_hchs.database',$dbname);
     	DB::setDefaultConnection('mysql_hchs');
     	var_dump(getenv('APP_ENV')); 
-    	dd(User::get());
-    	dd('change DB to '.$account);
+    	//dd(User::get());
+    	//dd('change DB to '.$account);
+    	$router->resource('home','SmsHomeController');
+		$router->resource('course','SmsCourseController');
+		$router->resource('student','SmsStudentController');
+		$router->resource('messagestate','SmsMessageController');
+		$router->resource('setting','SmsSettingController');
+
+		return Redirect::to('/home');
         //
     });
 
