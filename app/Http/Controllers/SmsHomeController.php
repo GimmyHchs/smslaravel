@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Config;
 class SmsHomeController extends Controller {
 
 
-
+	private $subdomain;
 	public function __construct(){
 	   //subdomain check   if  get session will change the Database
 	   if(!is_null(Session::get('subdomain')))

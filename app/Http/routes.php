@@ -36,10 +36,12 @@ $router->resource('setting','SmsSettingController');
 Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
 {
 
-    Route::get('/happy', function($account)
+    Route::get('/', function($account)
     {
     	Session::set('subdomain',$account);
-
+    	DB::setDefaultConnection('mysql_subdomainusers');
+    	$results = DB::select('select * from users where domain = ?', $account);
+    	dd($results);
     	$dbname=$account;
     	Config::set('database.connections.mysql_hchs.database',$dbname);
     	DB::setDefaultConnection('mysql_hchs');
