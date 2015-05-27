@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\DomainUser;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -39,8 +39,8 @@ Route::group(['domain' => '{account}.school-mynet.cloudapp.net'], function()
     Route::get('/', function($account)
     {
     	Session::set('subdomain',$account);
-    	DB::setDefaultConnection('mysql_subdomainusers');
-    	$users = DB::connection('mysql_subdomainusers')->select('select * from users where domain ="'.$account.'"',array(1));
+    	//DB::setDefaultConnection('mysql_subdomainusers');
+    	$users=DomainUser::get()->where('domain',$account);
     	if(empty($users))
     		dd('empty');
     	else
