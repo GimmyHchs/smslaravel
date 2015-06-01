@@ -21,10 +21,9 @@ class SmsCourseController extends Controller {
 	 *
 	 * @return Response
 	 */
+
 	public function __construct(Course $course,Student $student,CourseStudent $coursestudent){
 
-       // $this->middleware('auth');
-       //$this->accountbank=$accountbank;
        $this->course=$course;
        $this->student=$student;
        $this->coursestudent=$coursestudent;
@@ -36,8 +35,9 @@ class SmsCourseController extends Controller {
        	 Config::set('database.connections.mysql_subdomain.database',$dbname);
     	 DB::setDefaultConnection('mysql_subdomain');
        }
-       //$this->bank=$bank;
+
 	}
+	
 	public function index(Course $courses)
 	{
 		$courses = $this->course->get();
@@ -87,17 +87,14 @@ class SmsCourseController extends Controller {
 	 */
 	public function show($id,Course $course)
 	{
-		//
+		//get student null checker Because some Mysql Version will not find correct target from integer
 		$myid = intval($id);
-		//$myid = $id;
 		$course = $this->course->get()->where('id',$myid)->first();
 		if($course==null)
 		{
 			$myid = $id;
 			$course = $this->course->get()->where('id',$myid)->first();
 		}
-		//$coursestudent = $this->coursestudent->get()->where('course_id',$myid);
-		
 
 
 		//Join table
@@ -106,7 +103,6 @@ class SmsCourseController extends Controller {
             $join->on('students.id', '=', 'courses_students.student_id')
                  ->where('courses_students.course_id', '=', $myid);
         })->get();
-		//dd($course);
 
 		$allstudents=$this->student->get();
 		
@@ -138,7 +134,7 @@ class SmsCourseController extends Controller {
 	 */
 	public function update($id,CourseAddRequest $request)
 	{
-		//
+		//update course information
 		$course=$this->course->get()->where('id',$id)->first();
 		if($course==null){
 			$course=$this->course->get()->where('id',intval($id))->first();
@@ -165,6 +161,7 @@ class SmsCourseController extends Controller {
 	 */
 	public function destroy($id)
 	{
+
 		//刪除課程
    		$course = $this->course->get()->where('id',$id)->first();
    		if($course==null)
@@ -181,12 +178,13 @@ class SmsCourseController extends Controller {
 	}
 
 	public function patchstudent($id,Request $request){
+
 		$studentcount=count($this->student->get());
 		$checkboxvalue=[];
 		for($i=1;$i<=$studentcount;$i++){
 			array_push($checkboxvalue,$request->get('checkbox'.$i));
-//			array_push($checkboxname, 'checkbox'.$i);
-		}
+
+	}
 
 		foreach ($checkboxvalue as $key => $value) {
 			if(!is_null($value))
