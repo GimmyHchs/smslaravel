@@ -13,7 +13,7 @@ use App\DomainUser;
 |
 */
 
-Route::get('/', 'SmsHomeController@index');
+//Route::get('/', 'SmsHomeController@index');
 
 //Test sms api Rout Control
 Route::post('/setting/smssend','SmsSettingController@sendsms');
@@ -33,7 +33,7 @@ $router->resource('student','SmsStudentController');
 $router->resource('messagestate','SmsMessageController');
 $router->resource('setting','SmsSettingController');
 
-/*
+
 Route::group(['domain' => '{account}.send2me.cc'], function()
 {
 
@@ -51,7 +51,7 @@ Route::group(['domain' => '{account}.send2me.cc'], function()
         //
     });
 
-});*/
+});
 
 
 //laravel default login route control
