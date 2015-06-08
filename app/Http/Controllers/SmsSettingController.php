@@ -155,7 +155,7 @@ class SmsSettingController extends Controller {
 		$sender->send();
 		//dd($sender->getUrl());
 		//dd($request);
-		Session::put('message', $target);
+		Session::put('message', $request->get('input_target'));
 		return redirect('/setting');
 	}
 
