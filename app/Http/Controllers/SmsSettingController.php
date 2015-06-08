@@ -149,7 +149,7 @@ class SmsSettingController extends Controller {
 		$sender->setTarget([
 			$request->get('input_target')
 			]);
-		$sender->setMessage($requst->get('input_content'));
+		$sender->setMessage($request->get('input_content'));
 		
 		//dd($sender->getUrl());
 		$sender->send();
