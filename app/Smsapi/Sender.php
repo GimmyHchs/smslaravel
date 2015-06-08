@@ -1,12 +1,13 @@
 <?php namespace App\Smsapi;
+
 /**
  * Author Shisha
  * 2015/4/11
  */
 
-
 class Sender
 {
+
 	private $url;
 	private $key;
 	private $secret;

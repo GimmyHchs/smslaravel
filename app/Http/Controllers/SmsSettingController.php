@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Smsapi\Sender;
+use App\Smsapi\SmsLumen;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
@@ -139,6 +140,21 @@ class SmsSettingController extends Controller {
 		//dd($to);
 		Session::put('message', $target);
 		return redirect('/setting');
+
+	}
+	public function sendlumensms(Request $request){
+
+		$sender = new SmsLumen(KEY, SECRET);
+		//$sender->test();
+		$sender->setTarget([
+			$request->get('input_target')
+			]);
+		$sender->setMessage('中文簡訊測試');
+		
+		//dd($sender->getUrl());
+		$sender->send();
+		dd($sender->getUrl());
+		dd($request);
 
 	}
 
