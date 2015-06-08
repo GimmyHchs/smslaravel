@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
 use App\Excelchecker\ExcelChecker;
 use App\Smsapi\Sender;
+use App\Smsapi\SmsLumen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 
@@ -347,18 +348,15 @@ class SmsStudentController extends Controller {
 			$student=$this->student->get()->where('id',intval($id))->first();
 		if(!is_null($student))
 		{
-			$sender = new Sender(API, KEY, SECRET);
+			
+		    $sender = new SmsLumen(KEY, SECRET);
 			$message="SmsLaravel 測試簡訊 Date: ".date("Y-m-d")."    ".date("h:i:sa");
-			$from="886911111111";
-			$to=[
+			$sender->setTarget([
 				$student->tel_parents
-			];
-			$sender->from($from);
-			$sender->to($to);
-			$sender->content($message);
-
+			]);
+			$sender->setMessage($message);
 			$sender->send();
-			Session::put('message', 'You send A test SMS Message to '.$to[0]);
+			Session::put('message', 'You send A test SMS Message to '.$student->tel_parents);
 		}
 		else
 		{
