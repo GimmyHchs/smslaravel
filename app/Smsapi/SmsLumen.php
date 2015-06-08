@@ -85,7 +85,7 @@ class SmsLumen
 	public function Send(){
 
 		$curl = curl_init();
-
+		$this->url=str_replace(" ","%20",$this->url);
 		curl_setopt($curl, CURLOPT_URL, $this->url);
 		//dd('https://'.$this->url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
