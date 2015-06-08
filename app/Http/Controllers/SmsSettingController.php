@@ -149,7 +149,7 @@ class SmsSettingController extends Controller {
 		$sender->setTarget([
 			$request->get('input_target')
 			]);
-		$sender->setMessage('中文簡訊測試');
+		$sender->setMessage($requst->get('input_content'));
 		
 		//dd($sender->getUrl());
 		$sender->send();
