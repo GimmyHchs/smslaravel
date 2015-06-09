@@ -136,7 +136,25 @@
 
 
 				</script>
-		
+				 <div class="col-md-12 col-md-offset-0" >
+					<div class="panel panel-default">
+			     	  	<div class="panel-heading">信箱測試</div>
+			     	  	<div class="panel-body">
+			     	  		{!!Form::open(['url'=>'/setting/emailsend','method'=>'POST'])!!}
+			     	  		<div class="form-group">
+			     	  			{!!Form::label('發送對象')!!}
+			     	  			{!!Form::text('input_target','',['class'=>'form-control', 'placeholder'=>"Enter Cellphone number"])!!}
+			     	  		</div>
+			     	  		<div class="form-group">
+			     	  			{!!Form::label('Email 內容')!!}
+			     	  			{!!Form::textarea('input_content','',['class'=>'form-control', 'placeholder'=>"Enter Message"])!!}
+			     	  		</div>
+			     	  		{!!Form::submit('發送一則Email',['class'=>'btn btn-primary'])!!}
+			     	  		{!!Form::close()!!}
+
+			     	  	</div>
+		     	  	</div>
+		     	 </div>
 		
 				<div class="col-md-12 col-md-offset-0" >
 					<div class="panel panel-default">
@@ -179,7 +197,7 @@
 		     	 </div>
 		     
          @if (!empty($message))
-            <script>webix.message("You Send SMS to {{$message}}"); </script>
+            <script>webix.message("{{$message}}"); </script>
          @endif
 
 	</body>

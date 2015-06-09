@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -138,12 +139,13 @@ class SmsSettingController extends Controller {
 		$target = $request->get('input_target');
 		//$issend = true;
 		//dd($to);
-		Session::put('message', $target);
+		Session::put('message', 'You Send SMS to '.$target);
 		return redirect('/setting');
 
 	}
 	public function sendlumensms(Request $request){
 
+		//using API Class 
 		$sender = new SmsLumen(KEY, SECRET);
 		//$sender->test();
 		$sender->setTarget([
@@ -155,8 +157,32 @@ class SmsSettingController extends Controller {
 		$sender->send();
 		//dd($sender->getUrl());
 		//dd($request);
-		Session::put('message', $request->get('input_target'));
+		Session::put('message', 'You Send SMS to '.$request->get('input_target'));
 		return redirect('/setting');
+	}
+	public function sendemail(Request $request){
+
+
+		  // 傳送給郵件view的變數資料
+		  $template_data = array(
+		      'name'=> 'Hchs',
+		      'content' => $request->get('input_content')
+		  );
+		  // 收件者資料
+		  $userinfo = array(
+		    'email'=>$request->get('input_target'),
+		    'subject'=>'使用 GMail!'
+		  );
+		  Mail::send('emails.index', $template_data, function($message) use ($userinfo)
+		  {
+		      $message->to($userinfo['email'])->subject($userinfo['subject']);
+		  });
+
+
+		Session::put('message', 'You Send Email to '.$userinfo['email']);
+		return redirect('/setting');
+
+
 	}
 
 }

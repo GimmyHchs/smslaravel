@@ -19,6 +19,9 @@ use App\DomainUser;
 Route::post('/setting/smssend','SmsSettingController@sendlumensms');
 Route::post('/student/{student}/smssend','SmsStudentController@sendsms');
 
+//Test Email Control
+Route::post('/setting/emailsend','SmsSettingController@sendemail');
+
 //Excel Route Control
 Route::post('/student/uploadexcel','SmsStudentController@uploadExcel');
 Route::get('/student/downloadexcel','SmsStudentController@downloadExcel');
