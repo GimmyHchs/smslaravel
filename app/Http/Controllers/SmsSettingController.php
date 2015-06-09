@@ -113,7 +113,7 @@ class SmsSettingController extends Controller {
 	}
 	public function sendsms(Request $request){
 
-		//using API Class    check info  from https://bitbucket.org/Shisha/send2me_api
+		//using API Class  check info  from https://bitbucket.org/Shisha/send2me_api
 
 		$sender = new Sender(API, KEY, SECRET);
 		$message = $request->get('input_content')." \n set time at  ".date("Y-m-d")."\n".date("h:i:sa");
