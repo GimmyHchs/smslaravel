@@ -17,6 +17,7 @@ use App\DomainUser;
 
 //mobile url setting
 Route::get('/mobile','MobileController@mobileSendSms');
+Route::get('/mobilejson','MobileController@mobileGetJson');
 
 
 //Test sms api Rout Control

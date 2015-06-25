@@ -36,6 +36,15 @@ class MobileController extends Controller {
        }
 	}
 
+	public function mobileGetJson(Request $request){
+
+		date_default_timezone_set("Asia/Taipei");
+		$barcode = $request->get('barcode');
+		$student=$this->student->get()->where('barcode',$barcode)->first();
+		$arrived_at=date("Y-m-d")." ".date("h:i:sa");
+
+		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
+	}
 	public function mobileSendSms(Request $request){
 
 		date_default_timezone_set("Asia/Taipei");
@@ -48,7 +57,7 @@ class MobileController extends Controller {
 		//Queue::later(5,new SendSms($student));
 		Queue::push(new SendSms($student));
 
-		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
+		return "";
 
 
 
