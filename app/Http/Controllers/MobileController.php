@@ -9,6 +9,7 @@ use App\Smsapi\Sender;
 use App\Smsapi\SmsLumen;
 
 use App\Student;
+use App\Commands;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
@@ -42,20 +43,12 @@ class MobileController extends Controller {
 		$student=$this->student->get()->where('barcode',$barcode)->first();
 		$arrived_at=date("Y-m-d")." ".date("h:i:sa");
 
+		//new queue for send Sms  check info to project folder app/commands/SendSms.php
+		//建立新的Queue，用來傳送SMS訊息，詳細內容查閱本專案檔案 app/commands/SendSms.php
+		Queue::push(new SendSms($student));
 
 		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
-		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
-		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
-		$sender = new SmsLumen(KEY, SECRET);
-		//$sender->test();
-		
-		$sender->setTarget([
-			$student->tel_parents
-			]);
 
-		$sender->setMessage("親愛的家長您好!貴子弟".$student->name."已經到達學校，請家長放心!  ".$arrived_at);
-		$sender->send();
-		//Session::put('message', 'You Send SMS to '.$request->get('input_target'));
 
 
 	}
