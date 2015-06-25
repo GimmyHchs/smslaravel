@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Queue;
 
 use App\Student;
 use App\Commands;
+use App\Commands\SendSms;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
