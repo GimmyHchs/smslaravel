@@ -43,7 +43,6 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
 		$sender = new SmsLumen(KEY, SECRET);
 		//$sender->test();
-		dd($this->student);
 		$sender->setTarget([
 			$this->student->tel_parents
 			]);
