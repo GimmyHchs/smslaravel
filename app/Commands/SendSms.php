@@ -25,6 +25,7 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 	 *
 	 * @return void
 	 */
+	private $student;
 	public function __construct(Student $student)
 	{
 		//
