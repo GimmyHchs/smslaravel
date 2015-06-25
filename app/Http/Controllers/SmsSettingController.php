@@ -181,8 +181,8 @@ class SmsSettingController extends Controller {
 			]);
 
 		$sender->setMessage("親愛的家長您好!貴子弟".$student->name."已經到達學校，請家長放心!  ".$arrived_at);
-
-		Session::put('message', 'You Send SMS to '.$request->get('input_target'));
+		$sender->send();
+		//Session::put('message', 'You Send SMS to '.$request->get('input_target'));
 		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
 
 	}
