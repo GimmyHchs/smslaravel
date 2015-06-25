@@ -32,11 +32,7 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 		$this->student=$student;
 	}
 
-	/**
-	 * Execute the command.
-	 *
-	 * @return void
-	 */
+
 	public function handle()
 	{
 		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php

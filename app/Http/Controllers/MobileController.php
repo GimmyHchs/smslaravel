@@ -45,7 +45,7 @@ class MobileController extends Controller {
 
 		//new queue for send Sms  check info to project folder app/commands/SendSms.php
 		//建立新的Queue，用來傳送SMS訊息，詳細內容查閱本專案檔案 app/commands/SendSms.php
-		Queue::push(new SendSms($student));
+		Queue::later(5,new SendSms($student));
 
 		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
 
