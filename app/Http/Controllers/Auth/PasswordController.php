@@ -29,6 +29,12 @@ class PasswordController extends Controller {
 	 */
 	public function __construct(Guard $auth, PasswordBroker $passwords)
 	{
+		if(!is_null(Session::get('subdomain')))
+       {
+       	 $dbname='smsdatabase_'.Session::get('subdomain');
+       	 Config::set('database.connections.mysql_subdomain.database',$dbname);
+    	 DB::setDefaultConnection('mysql_subdomain');
+       }
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 

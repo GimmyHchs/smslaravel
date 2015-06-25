@@ -33,7 +33,7 @@ class SmsCourseController extends Controller {
     	 DB::setDefaultConnection('mysql_subdomain');
        }
 
-       $this->middleware('auth');
+	   $this->middleware('auth');
 
 	}
 	
