@@ -25,6 +25,7 @@ class SmsCourseController extends Controller {
        $this->coursestudent=$coursestudent;
 
 		//subdomain check   if  get session will change the Database
+        //取得Session，用來判斷是否通過subdomain連入，並且適當地切換資料庫
        if(!is_null(Session::get('subdomain')))
        {
        	 $dbname='smsdatabase_'.Session::get('subdomain');
@@ -52,6 +53,7 @@ class SmsCourseController extends Controller {
 	public function store(CourseAddRequest $request)
 	{
 		//store a new record into courses table
+		//於courses table儲存一筆新的資料
 		$newcourse= new Course;
 		$newcourse->name=$request->get('input_name');
 		$newcourse->weekday = $request->get('input_weekday');
@@ -70,6 +72,7 @@ class SmsCourseController extends Controller {
 	public function show($id,Course $course)
 	{
 		//student null checker Because some Mysql Version will not find correct target from integer
+		//某些MySQL版本在使用字串搜尋int時會出錯，因此使用int、string各搜尋一次，若兩者都是null，才是真的查無此資料
 		$myid = intval($id);
 		$course = $this->course->get()->where('id',$myid)->first();
 		if($course==null)
@@ -107,6 +110,7 @@ class SmsCourseController extends Controller {
 	public function update($id,CourseAddRequest $request)
 	{
 		//update course information
+		//更新某筆course的資料
 		$course=$this->course->get()->where('id',$id)->first();
 		if($course==null){
 			$course=$this->course->get()->where('id',intval($id))->first();
@@ -130,6 +134,7 @@ class SmsCourseController extends Controller {
 	{
 
 		//delete course from courses table
+		//刪掉某筆course資料
    		$course = $this->course->get()->where('id',$id)->first();
    		if($course==null)
 		{
@@ -147,6 +152,7 @@ class SmsCourseController extends Controller {
 	public function patchstudent($id,Request $request){
 
 		//add some students into the course
+		//將學生加入至某個課程當中
 		$studentcount=count($this->student->get());
 		$checkboxvalue=[];
 		for($i=1;$i<=$studentcount;$i++){

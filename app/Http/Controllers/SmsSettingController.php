@@ -12,9 +12,11 @@ use App\Smsapi\SmsLumen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 
+
 	const API = "http://nov.mynet.com.tw:9090/api";
 	const KEY = "b67b96136e34ccd7b42656cd25";
 	const SECRET = "d739d9c7015a93064aacff78c8";
+	
 
 date_default_timezone_set("Asia/Taipei");
 
@@ -25,6 +27,7 @@ class SmsSettingController extends Controller {
 
 
 	   //subdomain check   if  get session will change the Database
+	   //取得Session，用來判斷是否通過subdomain連入，並且適當地切換資料庫
 	   if(!is_null(Session::get('subdomain')))
        {
        	 $dbname='smsdatabase_'.Session::get('subdomain');
@@ -83,6 +86,7 @@ class SmsSettingController extends Controller {
 	public function sendsms(Request $request){
 
 		//using API Class  check info  from https://bitbucket.org/Shisha/send2me_api
+		//使用API Class 詳細資訊請查閱 https://bitbucket.org/Shisha/send2me_api
 
 		$sender = new Sender(API, KEY, SECRET);
 		$message = $request->get('input_content')." \n set time at  ".date("Y-m-d")."\n".date("h:i:sa");
@@ -114,6 +118,7 @@ class SmsSettingController extends Controller {
 	public function sendlumensms(Request $request){
 
 		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
+		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
 		$sender = new SmsLumen(KEY, SECRET);
 		//$sender->test();
 		$sender->setTarget([
@@ -131,14 +136,15 @@ class SmsSettingController extends Controller {
 	public function sendemail(Request $request){
 
 
-		  // 傳送給郵件view的變數資料
 		  // passing value to the view
+		  // 傳送給郵件view的變數資料
 		  $template_data = array(
 		      'name'=> 'Hchs',
 		      'content' => $request->get('input_content')
 		  );
-		  // 收件者資料
+		  
 		  // receive data
+		  // 收件者資料
 		  $userinfo = array(
 		    'email'=>$request->get('input_target'),
 		    'subject'=>'使用 GMail!'

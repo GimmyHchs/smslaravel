@@ -15,6 +15,7 @@ class SmsHomeController extends Controller {
 	private $subdomain;
 	public function __construct(){
 	   //subdomain check   if  get session will change the Database
+	   //取得Session，用來判斷是否通過subdomain連入，並且適當地切換資料庫
 	   if(!is_null(Session::get('subdomain')))
        {
        	 $this->subdomain=Session::get('subdomain');

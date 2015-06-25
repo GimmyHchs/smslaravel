@@ -17,9 +17,12 @@ use App\Smsapi\SmsLumen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 
+
 	const API = "http://nov.mynet.com.tw:9090/api";
 	const KEY = "b67b96136e34ccd7b42656cd25";
 	const SECRET = "d739d9c7015a93064aacff78c8";
+
+
 
 
 class SmsStudentController extends Controller {
@@ -27,13 +30,14 @@ class SmsStudentController extends Controller {
 
 	public function __construct(Student $student,CourseStudent $coursestudent,Course $course){
 
-      // $this->middleware('auth');
+       //$this->middleware('auth');
        //$this->accountbank=$accountbank;
        $this->student=$student;
        $this->coursestudent=$coursestudent;
        $this->course=$course;
 
        //subdomain check   if  get session will change the Database
+       //取得Session，用來判斷是否通過subdomain連入，並且適當地切換資料庫
        if(!is_null(Session::get('subdomain')))
        {
        	 $dbname='smsdatabase_'.Session::get('subdomain');
@@ -46,12 +50,15 @@ class SmsStudentController extends Controller {
 	public function index()
 	{
 		//get all student data form database
+		//取得所有學生資訊
 		$students = $this->student->get();
 
 		//join [courses and courses_students table] for showing which course has already be 
+		//join courses 跟 courses_students table 用此看出學生已經參與了哪些課程
 		$coursestudents = $this->coursestudent->join('courses','courses.id','=','courses_students.course_id')->select('courses.name','courses_students.student_id')->get();
 
 		//if we have Session message , compact to student/index.blade.php
+		//若有session，傳遞給前端顯示
 		$message = Session::get('message');
 		Session::forget('message');
 		 
@@ -68,9 +75,9 @@ class SmsStudentController extends Controller {
 
 	public function store(StudentAddRequest $request)
 	{
-		//Check The Input
 	
 		//add lastid 1 for generate barcode
+		//為了barcode欄位，將最後的id值+1
 		$lastid=$this->student->get()->last()->id;
 		$lastid++;
 
@@ -93,14 +100,14 @@ class SmsStudentController extends Controller {
 
 		Session::put('message', 'You Add a Student '.$student->name);
 		return redirect('/student');
-		
-		//return view('student.index',compact('isaddstudent','students'));
+
 	}
 
 
 	public function show($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
+		//某些MySQL版本在使用字串搜尋int時會出錯，因此使用int、string各搜尋一次，若兩者都是null，才是真的查無此資料
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
@@ -117,6 +124,7 @@ class SmsStudentController extends Controller {
 	public function edit($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
+		//某些MySQL版本在使用字串搜尋int時會出錯，因此使用int、string各搜尋一次，若兩者都是null，才是真的查無此資料
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
@@ -131,6 +139,7 @@ class SmsStudentController extends Controller {
 	public function update($id,StudentAddRequest $request)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
+		//某些MySQL版本在使用字串搜尋int時會出錯，因此使用int、string各搜尋一次，若兩者都是null，才是真的查無此資料
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
@@ -149,6 +158,7 @@ class SmsStudentController extends Controller {
 	public function destroy($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
+		//某些MySQL版本在使用字串搜尋int時會出錯，因此使用int、string各搜尋一次，若兩者都是null，才是真的查無此資料
 		$student=$this->student->get()->where('id',$id)->first();
 		if($student==null){
 			$student=$this->student->get()->where('id',intval($id))->first();
@@ -174,13 +184,14 @@ class SmsStudentController extends Controller {
 		
 		//double foreach  for i=row  j=cell ,   
 		foreach ($reader->getActiveSheet()->getRowIterator() as $rowindex => $row) {
-			//
+
 		$student = new Student;
 		$cellValues=[];
 		
 
         foreach ($row->getCellIterator() as $cellindex => $cell) {
         	//check A1 to C1 formate
+        	//確認A1~C1是不是正確格式
         	if(!is_null($cell)&&$rowindex==1)
         	{
         		switch ($cellindex)
@@ -220,6 +231,7 @@ class SmsStudentController extends Controller {
 
             			default:
             				//ignore the same student between Mysql DB and Excel file
+            				//省略某些已存在於MYSQL的資料
 							$samestudent=$this->student->get()->where('tel',$student->tel)->where('tel_parents',$student->tel_parents)->where('name',$student->name)->first();
 							if(!is_null($samestudent))
 							{
@@ -237,12 +249,14 @@ class SmsStudentController extends Controller {
         }
 
     	}
-    	//check all row ,get checkedArrayList;
+    	//check all row ,get checkedArrayList
+    	//檢查所有row , 並取得檢查過後的List
     	$checker->checkRowList();
     	$studentlist=$checker->getCheckedList();
     	
 
     	//add new import students into Mysql DB
+    	//新增所有匯入的學生資料
     	foreach ($studentlist as $key => $student) {
     		$newstudent = new Student;
     		$newstudent->name = $student[0];
@@ -252,6 +266,7 @@ class SmsStudentController extends Controller {
             $newstudent->sex='男';
 
             //Tel number checker
+            //檢查手機號碼格式
             if(strlen($student[1])==12||strlen($student[1])==10||strlen($student[1])==9)
             {
 				if(strlen($student[1])==9)
@@ -274,6 +289,7 @@ class SmsStudentController extends Controller {
 
 
             //Barcode Checker
+            //檢查Barcode格式
     		$lastid=$this->student->get()->last()->id;
 			$lastid++;
 			if($lastid<10)
@@ -337,6 +353,6 @@ class SmsStudentController extends Controller {
 		return redirect('/student');
 		
 	}
-	
+
 
 }
