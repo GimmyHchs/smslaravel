@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Smsapi\Sender;
 use App\Smsapi\SmsLumen;
+use Illuminate\Support\Facades\Queue;
 
 use App\Student;
 use App\Commands;
