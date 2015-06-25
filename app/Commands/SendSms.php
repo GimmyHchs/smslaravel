@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Smsapi\Sender;
 use App\Smsapi\SmsLumen;
 
+	const KEY = "b67b96136e34ccd7b42656cd25";
+	const SECRET = "d739d9c7015a93064aacff78c8";
+
 class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 
 	use InteractsWithQueue, SerializesModels;
