@@ -41,6 +41,8 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 	{
 		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
 		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
+		date_default_timezone_set("Asia/Taipei");
+		$arrived_at=date("Y-m-d")." ".date("h:i:sa");
 		$sender = new SmsLumen(KEY, SECRET);
 		//$sender->test();
 		$sender->setTarget([
