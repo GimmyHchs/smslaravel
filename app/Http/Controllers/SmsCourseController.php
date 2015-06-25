@@ -16,11 +16,7 @@ use Illuminate\Support\Facades\Config;
 
 class SmsCourseController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
 
 	public function __construct(Course $course,Student $student,CourseStudent $coursestudent){
 
@@ -46,25 +42,16 @@ class SmsCourseController extends Controller {
 		return view('course.index',compact('courses','message'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create()
 	{
-		//
 		return view('course.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(CourseAddRequest $request)
 	{
-		//
+		//store a new record into courses table
 		$newcourse= new Course;
 		$newcourse->name=$request->get('input_name');
 		$newcourse->weekday = $request->get('input_weekday');
@@ -79,15 +66,10 @@ class SmsCourseController extends Controller {
 		return redirect('/course');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id,Course $course)
 	{
-		//get student null checker Because some Mysql Version will not find correct target from integer
+		//student null checker Because some Mysql Version will not find correct target from integer
 		$myid = intval($id);
 		$course = $this->course->get()->where('id',$myid)->first();
 		if($course==null)
@@ -109,12 +91,7 @@ class SmsCourseController extends Controller {
 		return view('course.show',compact('students','course','allstudents'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		//
@@ -126,12 +103,7 @@ class SmsCourseController extends Controller {
 
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id,CourseAddRequest $request)
 	{
 		//update course information
@@ -153,16 +125,11 @@ class SmsCourseController extends Controller {
 		return redirect('/course');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 
-		//刪除課程
+		//delete course from courses table
    		$course = $this->course->get()->where('id',$id)->first();
    		if($course==null)
 		{
@@ -179,6 +146,7 @@ class SmsCourseController extends Controller {
 
 	public function patchstudent($id,Request $request){
 
+		//add some students into the course
 		$studentcount=count($this->student->get());
 		$checkboxvalue=[];
 		for($i=1;$i<=$studentcount;$i++){

@@ -24,11 +24,7 @@ use Illuminate\Support\Facades\Config;
 
 class SmsStudentController extends Controller {
 
-	/*
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
 	public function __construct(Student $student,CourseStudent $coursestudent,Course $course){
 
       // $this->middleware('auth');
@@ -62,22 +58,14 @@ class SmsStudentController extends Controller {
 		return view('student.index',compact('students', 'message','coursestudents'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create()
 	{
 		//
 		return view('student.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(StudentAddRequest $request)
 	{
 		//Check The Input
@@ -109,12 +97,7 @@ class SmsStudentController extends Controller {
 		//return view('student.index',compact('isaddstudent','students'));
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
@@ -130,12 +113,7 @@ class SmsStudentController extends Controller {
 
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
@@ -149,12 +127,7 @@ class SmsStudentController extends Controller {
 		return view('student.edit',compact('student'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id,StudentAddRequest $request)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
@@ -172,12 +145,7 @@ class SmsStudentController extends Controller {
 		return redirect('/student/'.$id);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 		//get student null checker Because some Mysql Version will not find correct target from integer
@@ -190,6 +158,7 @@ class SmsStudentController extends Controller {
 		$student->delete();
 		return redirect('/student');
 	}
+
 	public function uploadExcel(Request $request)
 	{
 		$message="";
@@ -323,6 +292,7 @@ class SmsStudentController extends Controller {
 		return redirect('/student');
 
 	}
+
 	public function downloadExcel(){
 		
 		Excel::create('補習班全員名單', function($excel) {
@@ -341,6 +311,7 @@ class SmsStudentController extends Controller {
 		})->download('xlsx');
 
 	}
+
 	public function sendsms($id){
 
 		$student=$this->student->get()->where('id',$id)->first();
@@ -365,7 +336,7 @@ class SmsStudentController extends Controller {
 
 		return redirect('/student');
 		
-
 	}
+	
 
 }
