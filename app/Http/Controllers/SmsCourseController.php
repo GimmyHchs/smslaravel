@@ -33,6 +33,8 @@ class SmsCourseController extends Controller {
     	 DB::setDefaultConnection('mysql_subdomain');
        }
 
+       $this->middleware('auth');
+
 	}
 	
 	public function index(Course $courses)

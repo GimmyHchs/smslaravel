@@ -20,6 +20,7 @@ class SmsMessageController extends Controller {
 	   $this->student=$student;
        $this->message=$message;
        //$this->bank=$bank;
+       $this->middleware('auth');
 	}
 
 

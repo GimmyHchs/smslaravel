@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Config;
 	const API = "http://nov.mynet.com.tw:9090/api";
 	const KEY = "b67b96136e34ccd7b42656cd25";
 	const SECRET = "d739d9c7015a93064aacff78c8";
-	
+
 
 date_default_timezone_set("Asia/Taipei");
 
@@ -34,7 +34,7 @@ class SmsSettingController extends Controller {
        	 Config::set('database.connections.mysql_subdomain.database',$dbname);
     	 DB::setDefaultConnection('mysql_subdomain');
        }
-
+	   $this->middleware('auth');
 	}
 	
 
