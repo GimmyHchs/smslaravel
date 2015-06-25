@@ -87,7 +87,7 @@ class SmsSettingController extends Controller {
 
 		//using API Class  check info  from https://bitbucket.org/Shisha/send2me_api
 		//使用API Class 詳細資訊請查閱 https://bitbucket.org/Shisha/send2me_api
-
+		date_default_timezone_set("Asia/Taipei");
 		$sender = new Sender(API, KEY, SECRET);
 		$message = $request->get('input_content')." \n set time at  ".date("Y-m-d")."\n".date("h:i:sa");
 		$from = $request->get('input_from');
@@ -116,7 +116,7 @@ class SmsSettingController extends Controller {
 
 	}
 	public function sendlumensms(Request $request){
-
+		date_default_timezone_set("Asia/Taipei");
 		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
 		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
 		$sender = new SmsLumen(KEY, SECRET);

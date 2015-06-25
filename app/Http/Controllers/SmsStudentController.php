@@ -331,6 +331,7 @@ class SmsStudentController extends Controller {
 
 	public function sendsms($id){
 
+		date_default_timezone_set("Asia/Taipei");
 		$student=$this->student->get()->where('id',$id)->first();
 		if(is_null($student))
 			$student=$this->student->get()->where('id',intval($id))->first();
