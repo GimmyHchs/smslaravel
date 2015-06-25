@@ -164,26 +164,5 @@ class SmsSettingController extends Controller {
 
 	}
 
-	public function mobileSendSms(Request $request){
 
-		date_default_timezone_set("Asia/Taipei");
-		$barcode = $request->get('barcode');
-		$student=$this->student->get()->where('barcode',$barcode)->first();
-		$arrived_at=date("Y-m-d")." ".date("h:i:sa");
-
-		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
-		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
-		$sender = new SmsLumen(KEY, SECRET);
-		//$sender->test();
-		
-		$sender->setTarget([
-			$student->tel_parents
-			]);
-
-		$sender->setMessage("親愛的家長您好!貴子弟".$student->name."已經到達學校，請家長放心!  ".$arrived_at);
-		$sender->send();
-		//Session::put('message', 'You Send SMS to '.$request->get('input_target'));
-		return Response::json(array('name' => $student->name, 'arrived_at' => $arrived_at,'barcode' => $request->get('barcode')));
-
-	}
 }
