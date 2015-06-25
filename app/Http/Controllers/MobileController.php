@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 
+	const API = "http://nov.mynet.com.tw:9090/api";
+	const KEY = "b67b96136e34ccd7b42656cd25";
+	const SECRET = "d739d9c7015a93064aacff78c8";
+
+
 class MobileController extends Controller {
 
 	public function __construct(Student $student){
