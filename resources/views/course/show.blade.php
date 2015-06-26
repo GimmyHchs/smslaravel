@@ -85,7 +85,7 @@
           <div class="row">
           @endif
        
-            <div class="col-xs-3" style=" border-width:1px;border-style:dotted;">
+            <div class="col-xs-3" style=" border-width:1px;border-style:dotted;border-color: #bbbbbb;">
               <div align="center">{{$student->name}}</div>
               <div align="center" style="margin-bottom:1px">{!!Html::image('/png/'.$student->barcode.'.png')!!}</div>
             </div>
