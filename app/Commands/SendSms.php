@@ -8,7 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 
 use App\Student;
-use App\Config;
+//use App\Config;
 use App\Smsapi\SmsSendThread;
 
 use Illuminate\Http\Request;
@@ -28,12 +28,12 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 	 * @return void
 	 */
 	private $student;
-	private $config;
-	public function __construct(Student $student,Config $config)
+	//private $config;
+	public function __construct(Student $student)
 	{
 		//
 		$this->student=$student;
-		$this->config=$config;
+		//$this->config=$config;
 	}
 
 
