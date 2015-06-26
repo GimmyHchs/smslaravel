@@ -8,6 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 
 use App\Student;
+use App\Config;
 use App\Smsapi\SmsSendThread;
 
 use Illuminate\Http\Request;
@@ -27,10 +28,12 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 	 * @return void
 	 */
 	private $student;
-	public function __construct(Student $student)
+	private $config;
+	public function __construct(Student $student,Config $config)
 	{
 		//
 		$this->student=$student;
+		$this->config=$config;
 	}
 
 
@@ -38,7 +41,8 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 	{
 		//using API Class  check info from the project folder app/Smsapi/SmsLumen.php and testSmsLumen.php
 		//使用API Class 詳細資訊請查閱本專案內的檔案 app/Smsapi/SmsLumen.php 跟 testSmsLumen.php
-		
+		$messageformat=$this->config->get()->where('name','messageformat')->first()->value;
+		dd($messageformat);
 		date_default_timezone_set("Asia/Taipei");
 		$arrived_at=date("Y-m-d")." ".date("h:i:sa");
 		$sender = new SmsLumen(KEY, SECRET);
@@ -48,7 +52,7 @@ class SendSms extends Command implements SelfHandling, ShouldBeQueued {
 			]);
 
 		$sender->setMessage("親愛的家長您好!貴子弟".$this->student->name."已經到達學校，請家長放心!  ".$arrived_at);
-		$sender->send();
+		//$sender->send();
 		/*$sendthread=new SmsSendThread($this->student);
 		$sendthread->run();*/
 

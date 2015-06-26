@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
 		 $this->call('CourseStudentSeeder');
 		 $this->call('MessageSeeder');
 		 $this->call('DomainSeeder');
+		 $this->call('ConfigSeeder');
 	}
 
 }
